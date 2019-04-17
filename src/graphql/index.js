@@ -10,3 +10,5 @@ const resolversArray = fileLoader(path.join(__dirname, './**/*.js'), {
 
 export const typeDefs = mergeTypes(typesArray)
 export const resolvers = mergeResolvers(resolversArray)
+
+export const msg = 'message from the api/src/graphql/index.js'

@@ -1,7 +1,7 @@
 import promise from 'bluebird'
 
 const initOptions = { promiseLib: promise }
-const pgp = require('pg-promise')(initOptions)
+export const pgp = require('pg-promise')(initOptions)
 const monitor = require('pg-monitor')
 
 monitor.attach(initOptions)
