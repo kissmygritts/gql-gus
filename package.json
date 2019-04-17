@@ -4,6 +4,8 @@
   "description": "graphql api for gus",
   "main": "index.js",
   "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir build --copy-files",
+    "clean": "rm -rf build",
     "start": "nodemon --exec babel-node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
