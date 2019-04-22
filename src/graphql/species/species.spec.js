@@ -18,6 +18,10 @@ const SPECIES_QUERY = /* GraphQL */`
   }
 `
 
+afterAll(() => {
+  return pgp.end()
+})
+
 describe('species', () => {
   test('SPECIES_QUERY should return data', async () => {
     const response = await gqlRunner(SPECIES_QUERY, {})

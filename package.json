@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jest src"
   },
   "author": "Mitchell Gritts <mitchellgritts@gmail.com> (mitchellgritts.com)",
   "license": "Unlicense",
