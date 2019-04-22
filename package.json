@@ -1,5 +1,5 @@
 {
-  "name": "gql gus",
+  "name": "gql-gus",
   "version": "1.0.0",
   "description": "GraphQL api for GUS system",
   "main": "server.js",
