@@ -22,10 +22,13 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.4.8",
+    "bluebird": "^3.5.4",
     "express": "^4.16.4",
     "graphql": "^14.2.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.4",
-    "merge-graphql-schemas": "^1.5.8"
+    "merge-graphql-schemas": "^1.5.8",
+    "pg-monitor": "^1.1.0",
+    "pg-promise": "^8.6.5"
   }
 }
