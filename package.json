@@ -1,25 +1,18 @@
 {
-  "name": "gus-api",
-  "version": "0.1.0",
-  "description": "graphql api for gus",
+  "name": "minex",
+  "version": "1.0.0",
+  "description": "minex",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && ./node_modules/.bin/babel src --out-dir build --ignore src/**/*.test.js",
-    "clean": "rm -rf build",
     "start": "nodemon --exec babel-node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mitchell Gritts <mitchellgritts@gmail.com> (mitchellgritts.com)",
   "license": "Unlicense",
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.3",
-    "babel-jest": "^24.7.1",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.17.1",
+    "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.1.1",
@@ -29,13 +22,10 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.4.8",
-    "bluebird": "^3.5.4",
     "express": "^4.16.4",
     "graphql": "^14.2.1",
     "graphql-iso-date": "^3.6.1",
     "graphql-tools": "^4.0.4",
-    "merge-graphql-schemas": "^1.5.8",
-    "pg-monitor": "^1.1.0",
-    "pg-promise": "^8.6.5"
+    "merge-graphql-schemas": "^1.5.8"
   }
 }
