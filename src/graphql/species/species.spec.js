@@ -32,4 +32,9 @@ describe('species', () => {
     const response = await gqlRunner(SPECIES_QUERY, {})
     expect(response.data.species).toBeInstanceOf(Array)
   })
+
+  test('data.species[0] should have subspecies property', async () => {
+    const response = await gqlRunner(SPECIES_QUERY, {})
+    expect(response.data.species[0]).toHaveProperty('subspecies')
+  })
 })
