@@ -1,30 +1,11 @@
 const express = require('express')
-const { ApolloServer, gql } = require('apollo-server-express')
+const { ApolloServer } = require('apollo-server-express')
+const { typeDefs, resolvers } = require('./graphql')
 
 const app = express()
 
-const schema = gql`
-  type Query {
-    me: User
-  }
-
-  type User {
-    username: String!
-  }
-`
-
-const resolvers = {
-  Query: {
-    me: () => {
-      return {
-        username: 'Mitchell Gritts'
-      }
-    }
-  }
-}
-
 const server = new ApolloServer({
-  typeDefs: schema,
+  typeDefs,
   resolvers
 })
 
