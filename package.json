@@ -23,6 +23,7 @@
   "dependencies": {
     "apollo-server-express": "^2.4.8",
     "bluebird": "^3.5.4",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "graphql": "^14.2.1",
     "graphql-iso-date": "^3.6.1",
