@@ -1,10 +1,10 @@
 {
-  "name": "minex",
+  "name": "gql gus",
   "version": "1.0.0",
-  "description": "minex",
-  "main": "index.js",
+  "description": "GraphQL api for GUS system",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
+    "start": "nodemon node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mitchell Gritts <mitchellgritts@gmail.com> (mitchellgritts.com)",
