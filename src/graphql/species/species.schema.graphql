@@ -2,6 +2,7 @@ type Species {
   id: ID!
   common_name: String
   species_name: String
+  subspecies: String
 }
 
 type Query {

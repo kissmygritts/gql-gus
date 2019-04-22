@@ -14,6 +14,7 @@ const SPECIES_QUERY = /* GraphQL */`
       id
       common_name
       species_name
+      subspecies
     }
   }
 `
