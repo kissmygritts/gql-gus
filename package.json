@@ -4,7 +4,8 @@
   "description": "GraphQL api for GUS system",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon node src/server.js",
+    "start": "node src/server.js",
+    "dev": "nodemon node src/server.js",
     "test": "./node_modules/.bin/jest src"
   },
   "author": "Mitchell Gritts <mitchellgritts@gmail.com> (mitchellgritts.com)",
@@ -23,6 +24,7 @@
   "dependencies": {
     "apollo-server-express": "^2.4.8",
     "bluebird": "^3.5.4",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "graphql": "^14.2.1",

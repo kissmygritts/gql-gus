@@ -1,8 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const { ApolloServer } = require('apollo-server-express')
 const { typeDefs, resolvers } = require('./graphql')
+const port = 8081
 
 const app = express()
+app.use(cors())
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,6 +14,6 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app, path: '/graphql' })
 
-app.listen({ port: 8000 }, () => {
-  console.log('Apollo Server on http://localhost:8000/graphql')
+app.listen({ port }, (port) => {
+  console.log(`Apollo Server on http://localhost:${port}/graphql`)
 })
