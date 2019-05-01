@@ -4,7 +4,7 @@
   "description": "GraphQL api for GUS system",
   "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
     "dev": "nodemon node src/server.js",
     "test": "./node_modules/.bin/jest src"
   },
