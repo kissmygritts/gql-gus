@@ -4,9 +4,9 @@ node_js:
 deploy:
   provider: elasticbeanstalk
   access_key_id:
-    secure: "ACCESS_KEY_ID"
+    secure: ACCESS_KEY_ID
   secret_access_key:
-    secure: "SECRET_ACCESS_KEY"
+    secure: SECRET_ACCESS_KEY
   region: us-west-2
   app: gus-graphql-apollo-server
   env: gus-graphql-apollo-server-dev
