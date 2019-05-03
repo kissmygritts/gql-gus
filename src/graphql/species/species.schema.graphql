@@ -5,6 +5,18 @@ type Species {
   subspecies: String
 }
 
+input SpeciesQueryFilterInput {
+  common_name: StringFilterInput
+  species_name: StringFilterInput
+}
+
+input StringFilterInput {
+  eq: String
+  like: String
+}
+
 type Query {
-  species: [Species]
+  species(
+    filter: SpeciesQueryFilterInput
+  ): [Species]
 }
