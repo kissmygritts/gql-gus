@@ -32,8 +32,13 @@ const filterToWhere = filter => sqlizeFilter(parseFilter(filter))
 module.exports = {
   Query: {
     species: async (parent, args, context, info) => {
-      const sql = pgp.as.format('select id, common_name, species_name, subspecies from species where $1:raw',
+      let sql
+      if (args.filter) {
+        sql = pgp.as.format('select id, common_name, species_name, subspecies from species where $1:raw',
                                 filterToWhere(args.filter))
+      } else {
+        sql = 'select id, common_name, species_name, subspecies from species'
+      }
       return db.many(sql)
     }
   }

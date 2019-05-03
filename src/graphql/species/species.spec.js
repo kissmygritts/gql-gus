@@ -18,18 +18,31 @@ const SPECIES_QUERY = /* GraphQL */`
     }
   }
 `
+const SPECIES_QUERY_FILTER = /* GraphQL */`
+    query {
+      species (
+        filter: {
+          common_name: { like: "%deer%" }
+        }
+      ){
+        common_name
+        species_name
+        id
+      }
+    }
+  `
 
 afterAll(() => {
   return pgp.end()
 })
 
-describe('species', () => {
-  test('SPECIES_QUERY should return data', async () => {
+describe('species query', () => {
+  test('should return data without any args', async () => {
     const response = await gqlRunner(SPECIES_QUERY, {})
     expect(response).toHaveProperty('data')
   })
 
-  test('data.species should be array', async () => {
+  test('data.species should be an array', async () => {
     const response = await gqlRunner(SPECIES_QUERY, {})
     expect(response.data.species).toBeInstanceOf(Array)
   })
@@ -37,5 +50,17 @@ describe('species', () => {
   test('data.species[0] should have subspecies property', async () => {
     const response = await gqlRunner(SPECIES_QUERY, {})
     expect(response.data.species[0]).toHaveProperty('subspecies')
+  })
+})
+
+describe('species query: filter', () => {
+  test('should return data with filter argument', async () => {
+    const response = await gqlRunner(SPECIES_QUERY_FILTER, {})
+    expect(response).toHaveProperty('data')
+  })
+
+  test(`filter: { common_name: { like: "%deer%" } } returns 8 records'`, async () => {
+    const response = await gqlRunner(SPECIES_QUERY_FILTER, {})
+    expect(response.data.species).toHaveLength(8)
   })
 })
