@@ -33,12 +33,23 @@ module.exports = {
   Query: {
     species: async (parent, args, context, info) => {
       let sql
+      let limit
+
+      // where filter logic
       if (args.filter) {
         sql = pgp.as.format('select id, common_name, species_name, subspecies from species where $1:raw',
                                 filterToWhere(args.filter))
       } else {
         sql = 'select id, common_name, species_name, subspecies from species'
       }
+
+      // limit logic
+      if (args.limit) {
+        limit = pgp.as.format('limit $/first/', args.limit)
+        sql = sql + ' ' + limit
+      }
+
+      // execute query
       return db.many(sql)
     }
   }

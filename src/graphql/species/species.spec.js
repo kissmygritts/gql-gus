@@ -32,6 +32,18 @@ const SPECIES_QUERY_FILTER = /* GraphQL */`
     }
   `
 
+const SPECIES_QUERY_LIMIT = /* GraphQL */`
+    query {
+      species (
+        limit: { first: 2 }
+      ){
+        common_name
+        species_name
+        id
+      }
+    }
+  `
+
 afterAll(() => {
   return pgp.end()
 })
@@ -62,5 +74,17 @@ describe('species query: filter', () => {
   test(`filter: { common_name: { like: "%deer%" } } returns 8 records'`, async () => {
     const response = await gqlRunner(SPECIES_QUERY_FILTER, {})
     expect(response.data.species).toHaveLength(8)
+  })
+})
+
+describe('species query: limit', () => {
+  test('should return data with limit argument', async () => {
+    const response = await gqlRunner(SPECIES_QUERY_LIMIT, {})
+    expect(response).toHaveProperty('data')
+  })
+
+  test('limit: { first: 2 } returns 2 records', async () => {
+    const response = await gqlRunner(SPECIES_QUERY_LIMIT, {})
+    expect(response.data.species).toHaveLength(2)
   })
 })
