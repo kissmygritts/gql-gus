@@ -15,8 +15,13 @@ input StringFilterInput {
   like: String
 }
 
+input SpeciesQueryLimitInput {
+  first: Int
+}
+
 type Query {
   species(
     filter: SpeciesQueryFilterInput
+    limit: SpeciesQueryLimitInput
   ): [Species]
 }
