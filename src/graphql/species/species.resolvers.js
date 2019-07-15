@@ -27,8 +27,6 @@ const sqlizeFilter = criteriaArray => criteriaArray
 
 const filterToWhere = filter => sqlizeFilter(parseFilter(filter))
 
-
-
 module.exports = {
   Query: {
     species: async (parent, args, context, info) => {

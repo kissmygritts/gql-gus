@@ -4,6 +4,9 @@ const pgp = require('pg-promise')(initOptions)
 const monitor = require('pg-monitor')
 const { pgsqlUri, environment } = require('./../config')
 
+console.log(environment)
+console.log(pgsqlUri)
+
 if (environment === 'development') {
   monitor.attach(initOptions)
 }
