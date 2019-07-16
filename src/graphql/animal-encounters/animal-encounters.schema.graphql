@@ -1,0 +1,31 @@
+type AnimalEncounter {
+  animal_id: ID
+  encounter_id: ID
+  species_id: ID
+  common_name: String
+  species_name: String
+  ind_id: String
+  life_status: String
+  age_class: String
+  sex: String
+  n: Int
+  reencounter: Boolean
+  relocation: Boolean
+}
+
+input AnimalEncounterLimitInput {
+  first: Int
+  offset: Int
+}
+
+input AnimalEncounterFilterInput {
+  common_name: StringFilterInput,
+  species_name: StringFilterInput
+}
+
+type Query {
+  allAnimalEncounters(
+    filter: AnimalEncounterFilterInput
+    limit: AnimalEncounterLimitInput
+  ): [AnimalEncounter]
+}
