@@ -2,7 +2,14 @@ type Species {
   id: ID!
   common_name: String
   species_name: String
+  t_phylum: String
+  t_class: String
+  t_order: String
+  t_family: String
+  genus: String
+  species: String
   subspecies: String
+  species_group: String
 }
 
 input SpeciesQueryFilterInput {
