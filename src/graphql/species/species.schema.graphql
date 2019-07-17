@@ -17,6 +17,7 @@ input StringFilterInput {
 
 input SpeciesQueryLimitInput {
   first: Int
+  offset: Int
 }
 
 type Query {
