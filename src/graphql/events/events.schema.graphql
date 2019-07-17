@@ -12,11 +12,6 @@ type Event {
   updated_at: DateTime
 }
 
-input EventLimitInput {
-  first: Int
-  offset: Int
-}
-
 input EventFilterInput {
   source_app: StringFilterInput
 }
@@ -24,6 +19,6 @@ input EventFilterInput {
 type Query {
   allEvents (
     filter: EventFilterInput
-    limit: EventLimitInput
+    limit: OffsetPaginationInput
   ): [Event]
 }

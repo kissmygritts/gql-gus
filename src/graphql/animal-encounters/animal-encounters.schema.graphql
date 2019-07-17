@@ -13,11 +13,6 @@ type AnimalEncounter {
   relocation: Boolean
 }
 
-input AnimalEncounterLimitInput {
-  first: Int
-  offset: Int
-}
-
 input AnimalEncounterFilterInput {
   common_name: StringFilterInput,
   species_name: StringFilterInput
@@ -26,6 +21,6 @@ input AnimalEncounterFilterInput {
 type Query {
   allAnimalEncounters(
     filter: AnimalEncounterFilterInput
-    limit: AnimalEncounterLimitInput
+    limit: OffsetPaginationInput
   ): [AnimalEncounter]
 }
