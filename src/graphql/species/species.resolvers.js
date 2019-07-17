@@ -20,7 +20,7 @@ module.exports = {
           species_group
         from species
       `
-      
+
       return db.many('$/sql:raw/ $/where:raw/ $/pagination:raw/', {
         sql,
         where: sqlizeFilter(filter),

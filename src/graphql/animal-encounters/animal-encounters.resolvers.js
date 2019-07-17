@@ -7,7 +7,7 @@ module.exports = {
       const { limit, filter } = args
       // console.log('log:', sqlizeFilter(filter))
 
-      let sql = `
+      const sql = `
         select
           animals.id as animal_id,
           encounters.id as encounter_id,

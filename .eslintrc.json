@@ -4,9 +4,10 @@
         "es6": true,
         "node": true
     },
+    "plugins": ["jest"],
     "extends": [
         "standard",
-        "plugins:jest/recommended"
+        "plugin:jest/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
