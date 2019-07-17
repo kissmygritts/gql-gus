@@ -5,8 +5,6 @@ module.exports = {
   Query: {
     allAnimalEncounters: async (parent, args, context, info) => {
       const { limit, filter } = args
-      // console.log('log:', sqlizeFilter(filter))
-
       const sql = `
         select
           animals.id as animal_id,
@@ -25,7 +23,6 @@ module.exports = {
           right join encounters on animals.id = encounters.animal_id
           left join species on encounters.species_id = species.id
       `
-
       return db.many('$/sql:raw/ $/where:raw/ $/pagination:raw/', {
         sql,
         where: sqlizeFilter(filter),
