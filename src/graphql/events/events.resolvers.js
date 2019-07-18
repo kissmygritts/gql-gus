@@ -2,7 +2,7 @@ const DataLoader = require('dataloader')
 const { db } = require('./../../db')
 const { offsetPagination, sqlizeFilter } = require('./../../util')
 
-const animalEncounterLoader = new DataLoader(keys => {
+const animalEncounterLoader = new DataLoader(async keys => {
   const sql = `
     select
       encounters.event_id,
@@ -23,8 +23,12 @@ const animalEncounterLoader = new DataLoader(keys => {
       left join species on encounters.species_id = species.id
     where encounters.event_id in ($/keys:csv/)
   `
-  return db.many(sql, { keys })
-    .then(data => keys.map(k => data.filter(o => o.event_id === k)))
+
+  // fetch data from db (async/await instead of promise)
+  const data = await db.many(sql, { keys })
+
+  // map returned data to the proper keys (required step for child loaders)
+  return keys.map(k => data.filter(o => o.event_id === k))
 })
 
 module.exports = {
@@ -56,9 +60,6 @@ module.exports = {
   Event: {
     animal_encounters: async (parent, args, context, info) => {
       return animalEncounterLoader.load(parent.id)
-        .then(data => {
-          return data
-        })
     }
   }
 }
