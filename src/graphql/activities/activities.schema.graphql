@@ -1,0 +1,19 @@
+type Activity {
+  id: ID
+  activity_name: String
+  activity_type: String
+  activity_details: String
+  created_at: DateTime
+  events: [Event]
+}
+
+input ActivityFilterInput {
+  activity_name: String
+}
+
+type Query {
+  allActivities (
+    filter: ActivityFilterInput
+    limit: OffsetPaginationInput
+  ): [Activity]
+}
