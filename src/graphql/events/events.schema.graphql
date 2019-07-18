@@ -10,6 +10,7 @@ type Event {
   source_app: String
   created_at: DateTime
   updated_at: DateTime
+  animal_encounters: [AnimalEncounter]
 }
 
 input EventFilterInput {

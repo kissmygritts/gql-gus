@@ -1,5 +1,31 @@
+const DataLoader = require('dataloader')
 const { db } = require('./../../db')
 const { offsetPagination, sqlizeFilter } = require('./../../util')
+
+const animalEncounterLoader = new DataLoader(keys => {
+  const sql = `
+    select
+      encounters.event_id,
+      animals.id as animal_id,
+      encounters.id as encounter_id,
+      species.id as species_id,
+      species.common_name,
+      species.species_name,
+      animals.ind_id,
+      encounters.life_status,
+      encounters.age_class,
+      encounters.sex,
+      encounters.n,
+      encounters.reencounter,
+      encounters.relocation
+    from animals
+      right join encounters on animals.id = encounters.animal_id
+      left join species on encounters.species_id = species.id
+    where encounters.event_id in ($/keys:csv/)
+  `
+  return db.many(sql, { keys })
+    .then(data => keys.map(k => data.filter(o => o.event_id === k)))
+})
 
 module.exports = {
   Query: {
@@ -24,6 +50,15 @@ module.exports = {
         where: sqlizeFilter(filter),
         pagination: offsetPagination(limit)
       })
+    }
+  },
+
+  Event: {
+    animal_encounters: async (parent, args, context, info) => {
+      return animalEncounterLoader.load(parent.id)
+        .then(data => {
+          return data
+        })
     }
   }
 }
