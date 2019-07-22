@@ -14,7 +14,7 @@ module.exports = {
     }
   },
 
-  WildlifeEvents: {
+  WildlifeEvent: {
     wildlife_encounters: (parent, args, context, info) => {
       return parent.wildlife_encounters
     }
