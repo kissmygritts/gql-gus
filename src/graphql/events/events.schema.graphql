@@ -1,0 +1,25 @@
+type Event {
+  id: ID
+  activity_id: ID
+  event_start_timestamp: DateTime
+  event_end_timestamp: DateTime
+  event_type: String
+  # spatial data: x, y, datum, geom
+  comments: String
+  observer: String
+  source_app: String
+  created_at: DateTime
+  updated_at: DateTime
+  animal_encounters: [AnimalEncounter]
+}
+
+input EventFilterInput {
+  source_app: StringFilterInput
+}
+
+type Query {
+  allEvents (
+    filter: EventFilterInput
+    limit: OffsetPaginationInput
+  ): [Event]
+}

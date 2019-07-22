@@ -1,0 +1,38 @@
+type WildlifeEvent {
+  activity_uuid: ID
+  event_uuid: ID
+  species_uuid: ID
+  activity_name: String
+  event_start_timestamp: DateTime
+  event_end_timestamp: DateTime
+  source_app: String
+  common_name: String
+  species_name: String
+  species_group: String
+  wildlife_encounters: [WildlifeEncounter]
+}
+
+type WildlifeEncounter {
+  encounter_uuid: ID
+  animal_uuid: ID
+  ind_id: String
+  life_status: String
+  age_class: String
+  sex: String
+  n: Int
+}
+
+type Query {
+  observationFeed (
+    filter: ObservationFeedFilterInput
+    limit: OffsetPaginationInput
+  ): [WildlifeEvent]
+}
+
+input ObservationFeedFilterInput {
+  activity_name: StringFilterInput
+  source_app: StringFilterInput
+  common_name: StringFilterInput
+  species_name: StringFilterInput
+  species_group: StringFilterInput
+}

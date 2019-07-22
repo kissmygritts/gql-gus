@@ -1,0 +1,41 @@
+type Activity {
+  id: ID
+  activity_name: String
+  activity_type: String
+  activity_details: String
+  created_at: DateTime
+  events: [Event]
+}
+
+type Query {
+  getActivityByID (id: ID!): Activity
+  allActivities (
+    filter: ActivityFilterInput
+    limit: OffsetPaginationInput
+  ): [Activity]
+}
+
+type Mutation {
+  createActivity (input: CreateActivityInput!): Activity
+  updateActivityByID (
+    id: ID!
+    update: UpdateActivityInput!
+  ): Activity
+  deleteActivityByID (id: ID!): Activity
+}
+
+input ActivityFilterInput {
+  activity_name: String
+}
+
+input CreateActivityInput {
+  activity_name: String
+  activity_type: String
+  activity_details: String
+}
+
+input UpdateActivityInput {
+  activity_name: String
+  activity_type: String
+  activity_details: String
+}

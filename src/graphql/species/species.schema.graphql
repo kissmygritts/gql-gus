@@ -12,24 +12,14 @@ type Species {
   species_group: String
 }
 
-input SpeciesQueryFilterInput {
+input SpeciesFilterInput {
   common_name: StringFilterInput
   species_name: StringFilterInput
 }
 
-input StringFilterInput {
-  eq: String
-  like: String
-}
-
-input SpeciesQueryLimitInput {
-  first: Int
-  offset: Int
-}
-
 type Query {
-  species(
-    filter: SpeciesQueryFilterInput
-    limit: SpeciesQueryLimitInput
+  species (
+    filter: SpeciesFilterInput
+    limit: OffsetPaginationInput
   ): [Species]
 }
