@@ -5,6 +5,8 @@ type WildlifeEvent {
   activity_name: String
   event_start_timestamp: DateTime
   event_end_timestamp: DateTime
+  x: Float
+  y: Float
   source_app: String
   common_name: String
   species_name: String
