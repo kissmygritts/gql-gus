@@ -23,10 +23,8 @@ const animalEncounterLoader = new DataLoader(async keys => {
       left join species on encounters.species_id = species.id
     where encounters.event_id in ($/keys:csv/)
   `
-
   // fetch data from db (async/await instead of promise)
   const data = await db.many(sql, { keys })
-
   // map returned data to the proper keys (required step for child loaders)
   return keys.map(k => data.filter(o => o.event_id === k))
 })
@@ -54,6 +52,25 @@ module.exports = {
         where: sqlizeFilter(filter),
         pagination: offsetPagination(limit)
       })
+    },
+    eventById: async (parent, args, context, info) => {
+      const { id } = args
+      const sql = `
+        select
+          id,
+          activity_id,
+          event_start_timestamp,
+          event_end_timestamp,
+          event_type,
+          comments,
+          observer,
+          source_app,
+          created_at,
+          updated_at
+        from events
+        where id = $/id/
+        `
+      return db.oneOrNone(sql, { id })
     }
   },
 

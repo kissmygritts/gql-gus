@@ -22,4 +22,5 @@ type Query {
     filter: EventFilterInput
     limit: OffsetPaginationInput
   ): [Event]
+  eventById (id: ID!): Event
 }
