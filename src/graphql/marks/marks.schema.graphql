@@ -1,0 +1,15 @@
+type Mark {
+  id: ID!
+  animal_id: ID
+  mark_id: String
+  mark_type: String
+  mark_color: String
+  mark_location: String
+  notes: String
+  created_at: DateTime
+  updated_at: DateTime
+}
+
+type Query {
+  getMarks: [Mark]
+}
