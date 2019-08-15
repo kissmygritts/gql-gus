@@ -11,6 +11,7 @@ type AnimalEncounter {
   n: Int
   reencounter: Boolean
   relocation: Boolean
+  marks: [Mark]
 }
 
 input AnimalEncounterFilterInput {

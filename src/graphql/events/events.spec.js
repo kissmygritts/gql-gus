@@ -46,6 +46,18 @@ const EVENTS_QUERY_WITH_PAGINATION = /* GraphQL */`
   }
 `
 
+// const EVENT_BY_ID = /* GraphQL */`
+//   query ($id: ID!) {
+//     eventById (id: $id) {
+//       id
+//       animal_encounters {
+//         animal_id
+//         encounter_id
+//       }
+//     }
+//   }
+// `
+
 describe('events query', () => {
   describe('without variables', () => {
     test('response should contain data', async () => {

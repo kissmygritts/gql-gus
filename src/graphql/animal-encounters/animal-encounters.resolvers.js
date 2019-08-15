@@ -1,5 +1,25 @@
+const DataLoader = require('dataloader')
 const { db } = require('./../../db')
 const { offsetPagination, sqlizeFilter } = require('./../../util')
+
+const marksLoader = new DataLoader(async keys => {
+  const sql = `
+    select
+      id,
+      animal_id,
+      mark_id,
+      mark_type,
+      mark_color,
+      mark_location,
+      notes,
+      created_at,
+      updated_at
+    from marks
+    where animal_id in ($/keys:csv/)
+  `
+  const data = await db.manyOrNone(sql, { keys })
+  return keys.map(k => data.filter(o => o.animal_id === k))
+})
 
 module.exports = {
   Query: {
@@ -28,6 +48,12 @@ module.exports = {
         where: sqlizeFilter(filter),
         pagination: offsetPagination(limit)
       })
+    }
+  },
+
+  AnimalEncounter: {
+    marks: async (parent, args, context, info) => {
+      return marksLoader.load(parent.animal_id)
     }
   }
 }
