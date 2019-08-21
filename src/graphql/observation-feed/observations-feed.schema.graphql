@@ -1,8 +1,6 @@
 type WildlifeEvent {
-  activity_uuid: ID
-  event_uuid: ID
-  species_uuid: ID
-  activity_name: String
+  id: ID
+  species_id: ID
   event_start_timestamp: DateTime
   event_end_timestamp: DateTime
   x: Float
@@ -12,6 +10,7 @@ type WildlifeEvent {
   species_name: String
   species_group: String
   wildlife_encounters: [WildlifeEncounter]
+  wildlife_abundance: WildlifeAbundance
 }
 
 type WildlifeEncounter {
@@ -22,6 +21,13 @@ type WildlifeEncounter {
   age_class: String
   sex: String
   n: Int
+}
+
+type WildlifeAbundance {
+  event_uuid: ID
+  male: Int
+  female: Int
+  unk: Int
 }
 
 type Query {
