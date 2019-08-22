@@ -16,7 +16,6 @@ const FEED_QUERY = /* GraphQL */`
   query {
     observationFeed {
       common_name
-      activity_name
     }
   }
 `
@@ -27,7 +26,6 @@ const FEED_QUERY_WITH_FILTER = /* GraphQL */`
       filter: { common_name: { like: "%deer%" } }
     ) {
       common_name
-      activity_name
     }
   }
 `
@@ -38,7 +36,6 @@ const FEED_QUERY_WITH_PAGINATION = /* GraphQL */`
       limit: { first: 1 }
     ) {
       common_name
-      activity_name
     }
   }
 `
@@ -49,7 +46,6 @@ const FEED_QUERY_LOADS_CHILDREN = /* GraphQL */`
       limit: { first: 1 }
     ) {
       common_name
-      activity_name
       wildlife_encounters {
         encounter_uuid
         life_status
