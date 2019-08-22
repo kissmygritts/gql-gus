@@ -21,14 +21,29 @@ const marksLoader = new DataLoader(async keys => {
   return keys.map(k => data.filter(o => o.animal_id === k))
 })
 
+const biometricLoader = new DataLoader(async keys => {
+  const data = await db.biometrics.findByEncounterIds({ ids: keys })
+  return keys.map(k => data.filter(o => o.encounter_id === k))
+})
+
+const vitalLoader = new DataLoader(async keys => {
+  const data = await db.vitals.findByEncounterIds({ ids: keys })
+  return keys.map(k => data.filter(o => o.encounter_id === k))
+})
+
+const sampleLoader = new DataLoader(async keys => {
+  const data = await db.samples.findByEncounterIds({ ids: keys })
+  return keys.map(k => data.filter(o => o.encounter_id === k))
+})
+
 module.exports = {
   Query: {
     allAnimalEncounters: async (parent, args, context, info) => {
       const { limit, filter } = args
       const sql = `
         select
+          encounters.id as id,
           animals.id as animal_id,
-          encounters.id as encounter_id,
           species.id as species_id,
           species.common_name,
           species.species_name,
@@ -52,8 +67,9 @@ module.exports = {
   },
 
   AnimalEncounter: {
-    marks: async (parent, args, context, info) => {
-      return marksLoader.load(parent.animal_id)
-    }
+    marks: async (parent, args, context, info) => marksLoader.load(parent.animal_id),
+    biometrics: async (parent, args, context, info) => biometricLoader.load(parent.id),
+    vitals: async (parent, args, context, info) => vitalLoader.load(parent.id),
+    samples: async (parent, args, context, info) => sampleLoader.load(parent.id)
   }
 }

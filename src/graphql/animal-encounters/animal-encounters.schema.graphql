@@ -1,6 +1,6 @@
 type AnimalEncounter {
+  id: ID
   animal_id: ID
-  encounter_id: ID
   species_id: ID
   common_name: String
   species_name: String
@@ -12,6 +12,9 @@ type AnimalEncounter {
   reencounter: Boolean
   relocation: Boolean
   marks: [Mark]
+  biometrics: [Biometric]
+  samples: [Sample]
+  vitals: [Vital]
 }
 
 input AnimalEncounterFilterInput {

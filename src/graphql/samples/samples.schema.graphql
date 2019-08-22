@@ -1,0 +1,7 @@
+type Sample {
+  id: ID
+  encounter_id: ID
+  sample: String
+  n_samples: Float
+  notes: String
+}

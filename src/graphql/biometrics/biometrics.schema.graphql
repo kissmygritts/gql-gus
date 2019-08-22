@@ -1,0 +1,15 @@
+# I don't think I'll ever need to get all the biometrics independantly. 
+# Instead, they will always be loaded from the AnimalEncounter. 
+# There will need to be Mutations to create, update, delete biometrics
+
+type Biometric {
+  id: ID
+  encounter_id: ID
+  measurement: String
+  value: Float
+  units: String
+}
+
+type Query {
+  getAllBiometrics: [Biometric]
+}

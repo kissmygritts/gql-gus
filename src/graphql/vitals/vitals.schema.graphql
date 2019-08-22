@@ -1,0 +1,8 @@
+type Vital {
+  id: ID
+  encounter_id: ID
+  time_recorded: Time
+  heart_rate: Float
+  respiratory_rate: Float
+  temperature: Float
+}
