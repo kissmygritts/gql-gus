@@ -5,7 +5,8 @@ const { pgsqlUri, environment } = require('./../config')
 const {
   Biometrics,
   Vitals,
-  Samples
+  Samples,
+  Medications
 } = require('./repos')
 
 const initOptions = {
@@ -14,6 +15,7 @@ const initOptions = {
     obj.biometrics = new Biometrics(obj, pgp)
     obj.vitals = new Vitals(obj, pgp)
     obj.samples = new Samples(obj, pgp)
+    obj.medications = new Medications(obj, pgp)
   }
 }
 

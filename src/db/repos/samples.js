@@ -1,3 +1,4 @@
+// TODO: med attributes (json) type
 const cs = [
   {
     name: 'id'

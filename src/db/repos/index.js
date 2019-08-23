@@ -1,5 +1,6 @@
 module.exports = {
   Biometrics: require('./biometrics'),
   Vitals: require('./vitals'),
-  Samples: require('./samples')
+  Samples: require('./samples'),
+  Medications: require('./medications')
 }

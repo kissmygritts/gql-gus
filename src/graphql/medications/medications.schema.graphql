@@ -1,0 +1,10 @@
+type Medication {
+  id: ID
+  encounter_id: ID
+  medication: String
+  med_time: Time
+  med_dose: String
+  med_unit: String
+  med_method: String
+  med_notes: String
+}
