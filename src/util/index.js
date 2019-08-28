@@ -4,7 +4,7 @@ exports.offsetPagination = limitArgs => {
   // function to generate offset pagination sql statements
   if (limitArgs) {
     const { first, offset } = limitArgs
-    console.log(pgp)
+    console.log()
 
     const offsetSql = offset ? pgp.as.format('offset $1', offset) : ''
     const firstSql = first ? pgp.as.format('limit $1', first) : ''
