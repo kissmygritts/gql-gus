@@ -1,3 +1,5 @@
+const { offsetPagination } = require('./../../util')
+
 const cs = [
   {
     name: 'id'
@@ -23,6 +25,13 @@ class VitalsRepository {
 
   async findByEncounterIds (ids) {
     return this.db.any('select * from vitals where encounter_id in ($/ids:csv/)', ids)
+  }
+
+  async selectAll (args) {
+    const { limit } = args
+    return this.db.any('select * from vitals $/pagination/', {
+      pagination: offsetPagination(limit)
+    })
   }
 }
 

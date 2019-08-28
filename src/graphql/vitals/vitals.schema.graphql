@@ -6,3 +6,7 @@ type Vital {
   respiratory_rate: Float
   temperature: Float
 }
+
+type Query {
+  getVitals ( limit: OffsetPaginationInput ): [Vital]
+}
