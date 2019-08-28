@@ -18,7 +18,7 @@ input SpeciesFilterInput {
 }
 
 type Query {
-  species (
+  getSpecies (
     filter: SpeciesFilterInput
     limit: OffsetPaginationInput
   ): [Species]

@@ -31,7 +31,7 @@ const animalEncounterLoader = new DataLoader(async keys => {
 
 module.exports = {
   Query: {
-    allEvents: async (parent, args, context, info) => {
+    getEvents: async (parent, args, context, info) => {
       const { limit, filter } = args
       const sql = `
         select
@@ -53,7 +53,7 @@ module.exports = {
         pagination: offsetPagination(limit)
       })
     },
-    eventById: async (parent, args, context, info) => {
+    getEventById: async (parent, args, context, info) => {
       const { id } = args
       const sql = `
         select

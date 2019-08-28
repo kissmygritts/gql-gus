@@ -3,7 +3,7 @@ const { offsetPagination, sqlizeFilter } = require('./../../util')
 
 module.exports = {
   Query: {
-    observationFeed: async (parent, args, context, info) => {
+    getObservationFeed: async (parent, args, context, info) => {
       const { limit, filter } = args
 
       return db.manyOrNone('$/sql:raw/ $/where:raw/ $/pagination:raw/', {

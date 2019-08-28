@@ -3,7 +3,7 @@ const { offsetPagination, sqlizeFilter } = require('./../../util')
 
 module.exports = {
   Query: {
-    species: async (parent, args, context, info) => {
+    getSpecies: async (parent, args, context, info) => {
       const { limit, filter } = args
       const sql = `
         select 

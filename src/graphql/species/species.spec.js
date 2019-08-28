@@ -10,7 +10,7 @@ const gqlRunner = (query, variables) => {
 
 const SPECIES_QUERY = /* GraphQL */`
   query {
-    species {
+    getSpecies {
       id
       common_name
       species_name
@@ -20,7 +20,7 @@ const SPECIES_QUERY = /* GraphQL */`
 `
 const SPECIES_QUERY_FILTER = /* GraphQL */`
     query {
-      species (
+      getSpecies (
         filter: {
           common_name: { like: "%deer%" }
         }
@@ -34,7 +34,7 @@ const SPECIES_QUERY_FILTER = /* GraphQL */`
 
 const SPECIES_QUERY_LIMIT = /* GraphQL */`
     query {
-      species (
+      getSpecies (
         limit: { first: 2 }
       ){
         common_name
@@ -56,12 +56,12 @@ describe('species query', () => {
 
   test('data.species should be an array', async () => {
     const response = await gqlRunner(SPECIES_QUERY, {})
-    expect(response.data.species).toBeInstanceOf(Array)
+    expect(response.data.getSpecies).toBeInstanceOf(Array)
   })
 
   test('data.species[0] should have subspecies property', async () => {
     const response = await gqlRunner(SPECIES_QUERY, {})
-    expect(response.data.species[0]).toHaveProperty('subspecies')
+    expect(response.data.getSpecies[0]).toHaveProperty('subspecies')
   })
 })
 
@@ -73,7 +73,7 @@ describe('species query: filter', () => {
 
   test(`filter: { common_name: { like: "%deer%" } } returns 8 records'`, async () => {
     const response = await gqlRunner(SPECIES_QUERY_FILTER, {})
-    expect(response.data.species).toHaveLength(8)
+    expect(response.data.getSpecies).toHaveLength(8)
   })
 })
 
@@ -85,6 +85,6 @@ describe('species query: limit', () => {
 
   test('limit: { first: 2 } returns 2 records', async () => {
     const response = await gqlRunner(SPECIES_QUERY_LIMIT, {})
-    expect(response.data.species).toHaveLength(2)
+    expect(response.data.getSpecies).toHaveLength(2)
   })
 })

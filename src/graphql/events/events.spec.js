@@ -14,7 +14,7 @@ afterAll(() => {
 
 const EVENTS_QUERY = /* GraphQL */`
   query {
-    allEvents {
+    getEvents {
       id
       event_type
       source_app
@@ -24,7 +24,7 @@ const EVENTS_QUERY = /* GraphQL */`
 
 const EVENTS_QUERY_WITH_FILTER = /* GraphQL */`
   query {
-    allEvents (
+    getEvents (
       filter: { source_app: { eq: "captures" } }
     ) {
       id
@@ -36,7 +36,7 @@ const EVENTS_QUERY_WITH_FILTER = /* GraphQL */`
 
 const EVENTS_QUERY_WITH_PAGINATION = /* GraphQL */`
   query {
-    allEvents (
+    getEvents (
       limit: { first: 1 }
     ) {
       id
@@ -76,7 +76,7 @@ describe('events query', () => {
       const response = await gqlRunner(EVENTS_QUERY_WITH_FILTER, {})
       expect(response).toHaveProperty('data')
       expect(response).not.toHaveProperty('errors')
-      expect(response.data.allEvents.length).toBeGreaterThan(0)
+      expect(response.data.getEvents.length).toBeGreaterThan(0)
     })
   })
 
@@ -85,7 +85,7 @@ describe('events query', () => {
       const response = await gqlRunner(EVENTS_QUERY_WITH_PAGINATION, {})
       expect(response).toHaveProperty('data')
       expect(response).not.toHaveProperty('errors')
-      expect(response.data.allEvents.length).toBe(1)
+      expect(response.data.getEvents.length).toBe(1)
     })
   })
 })

@@ -24,7 +24,7 @@ input AnimalEncounterFilterInput {
 }
 
 type Query {
-  allAnimalEncounters(
+  getAnimalEncounters(
     filter: AnimalEncounterFilterInput
     limit: OffsetPaginationInput
   ): [AnimalEncounter]

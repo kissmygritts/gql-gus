@@ -54,7 +54,7 @@ const medicationLoader = new DataLoader(async keys => {
 
 module.exports = {
   Query: {
-    allAnimalEncounters: async (parent, args, context, info) => {
+    getAnimalEncounters: async (parent, args, context, info) => {
       const { limit, filter } = args
       const sql = `
         select

@@ -18,9 +18,9 @@ input EventFilterInput {
 }
 
 type Query {
-  allEvents (
+  getEvents (
     filter: EventFilterInput
     limit: OffsetPaginationInput
   ): [Event]
-  eventById (id: ID!): Event
+  getEventById (id: ID!): Event
 }

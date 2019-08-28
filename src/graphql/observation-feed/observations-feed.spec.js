@@ -14,7 +14,7 @@ afterAll(() => {
 
 const FEED_QUERY = /* GraphQL */`
   query {
-    observationFeed {
+    getObservationFeed {
       common_name
     }
   }
@@ -22,7 +22,7 @@ const FEED_QUERY = /* GraphQL */`
 
 const FEED_QUERY_WITH_FILTER = /* GraphQL */`
   query {
-    observationFeed (
+    getObservationFeed (
       filter: { common_name: { like: "%deer%" } }
     ) {
       common_name
@@ -32,7 +32,7 @@ const FEED_QUERY_WITH_FILTER = /* GraphQL */`
 
 const FEED_QUERY_WITH_PAGINATION = /* GraphQL */`
   query {
-    observationFeed (
+    getObservationFeed (
       limit: { first: 1 }
     ) {
       common_name
@@ -42,7 +42,7 @@ const FEED_QUERY_WITH_PAGINATION = /* GraphQL */`
 
 const FEED_QUERY_LOADS_CHILDREN = /* GraphQL */`
   query {
-    observationFeed (
+    getObservationFeed (
       limit: { first: 1 }
     ) {
       common_name
@@ -61,7 +61,7 @@ describe('events query', () => {
       const response = await gqlRunner(FEED_QUERY, {})
       expect(response).toHaveProperty('data')
       expect(response).not.toHaveProperty('errors')
-      expect(response.data.observationFeed.length).toBeGreaterThan(0)
+      expect(response.data.getObservationFeed.length).toBeGreaterThan(0)
     })
   })
 
@@ -70,7 +70,7 @@ describe('events query', () => {
       const response = await gqlRunner(FEED_QUERY_WITH_FILTER, {})
       expect(response).toHaveProperty('data')
       expect(response).not.toHaveProperty('errors')
-      expect(response.data.observationFeed.length).toBeGreaterThan(0)
+      expect(response.data.getObservationFeed.length).toBeGreaterThan(0)
     })
   })
 
@@ -79,7 +79,7 @@ describe('events query', () => {
       const response = await gqlRunner(FEED_QUERY_WITH_PAGINATION, {})
       expect(response).toHaveProperty('data')
       expect(response).not.toHaveProperty('errors')
-      expect(response.data.observationFeed.length).toBe(1)
+      expect(response.data.getObservationFeed.length).toBe(1)
     })
   })
 
@@ -88,7 +88,7 @@ describe('events query', () => {
       const response = await gqlRunner(FEED_QUERY_LOADS_CHILDREN, {})
       expect(response).toHaveProperty('data')
       expect(response).not.toHaveProperty('errors')
-      expect(response.data.observationFeed[0]).toHaveProperty('wildlife_encounters')
+      expect(response.data.getObservationFeed[0]).toHaveProperty('wildlife_encounters')
     })
   })
 })

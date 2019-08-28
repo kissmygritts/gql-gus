@@ -11,5 +11,5 @@ type Biometric {
 }
 
 type Query {
-  getAllBiometrics: [Biometric]
+  getBiometrics: [Biometric]
 }
