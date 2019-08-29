@@ -1,92 +1,17 @@
-const DataLoader = require('dataloader')
 const { db } = require('./../../db')
-const { offsetPagination, sqlizeFilter } = require('./../../util')
-
-const marksLoader = new DataLoader(async keys => {
-  const sql = `
-    select
-      id,
-      animal_id,
-      mark_id,
-      mark_type,
-      mark_color,
-      mark_location,
-      notes,
-      created_at,
-      updated_at
-    from marks
-    where animal_id in ($/keys:csv/)
-  `
-  const data = await db.manyOrNone(sql, { keys })
-  return keys.map(k => data.filter(o => o.animal_id === k))
-})
-
-// TODO: these loaders are all very similar, should encapsulate somehow
-// this abstraction seems to work. What are the drawbacks?
-const ChildLoader = ({ model, field }) => {
-  return new DataLoader(async keys => {
-    const data = await db[model].findByEncounterIds({ ids: keys })
-    return keys.map(k => data.filter(o => o[field] === k))
-  })
-}
-
-const biometricLoader = ChildLoader({ model: 'biometrics', field: 'encounter_id' })
-
-// const biometricLoader = new DataLoader(async keys => {
-//   const data = await db.biometrics.findByEncounterIds({ ids: keys })
-//   return keys.map(k => data.filter(o => o.encounter_id === k))
-// })
-
-const vitalLoader = new DataLoader(async keys => {
-  const data = await db.vitals.findByEncounterIds({ ids: keys })
-  return keys.map(k => data.filter(o => o.encounter_id === k))
-})
-
-const sampleLoader = new DataLoader(async keys => {
-  const data = await db.samples.findByEncounterIds({ ids: keys })
-  return keys.map(k => data.filter(o => o.encounter_id === k))
-})
-
-const medicationLoader = new DataLoader(async keys => {
-  const data = await db.medications.findByEncounterIds({ ids: keys })
-  return keys.map(k => data.filter(o => o.encounter_id === k))
-})
 
 module.exports = {
   Query: {
     getAnimalEncounters: async (parent, args, context, info) => {
-      const { limit, filter } = args
-      const sql = `
-        select
-          encounters.id as id,
-          animals.id as animal_id,
-          species.id as species_id,
-          species.common_name,
-          species.species_name,
-          animals.ind_id,
-          encounters.life_status,
-          encounters.age_class,
-          encounters.sex,
-          encounters.n,
-          encounters.reencounter,
-          encounters.relocation
-        from animals
-          right join encounters on animals.id = encounters.animal_id
-          left join species on encounters.species_id = species.id
-      `
-      return db.many('$/sql:raw/ $/where:raw/ $/pagination:raw/', {
-        sql,
-        where: sqlizeFilter(filter),
-        pagination: offsetPagination(limit)
-      })
+      return db.animalEncounters.all(args)
     }
   },
 
   AnimalEncounter: {
-    marks: async (parent, args, context, info) => marksLoader.load(parent.animal_id),
-    biometrics: async (parent, args, context, info) => biometricLoader.load(parent.id),
-    vitals: async (parent, args, context, info) => vitalLoader.load(parent.id),
-    samples: async (parent, args, context, info) => sampleLoader.load(parent.id),
-    medications: async (parent, args, context, info) => medicationLoader.load(parent.id)
+    biometrics: async (parent, args, context, info) => db.animalEncounters.biometricLoader.load(parent.id),
+    marks: async (parent, args, context, info) => db.animalEncounters.markLoader.load(parent.animal_id),
+    medications: async (parent, args, context, info) => db.animalEncounters.medicationLoader.load(parent.id),
+    samples: async (parent, args, context, info) => db.animalEncounters.sampleLoader.load(parent.id),
+    vitals: async (parent, args, context, info) => db.animalEncounters.vitalLoader.load(parent.id)
   }
 }

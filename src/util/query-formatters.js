@@ -15,6 +15,18 @@ const select = repo => args => {
   })
 }
 
+const find = repo => args => {
+  console.log(args)
+  const { id } = args
+  const format = repo.pgp.as.format
+
+  return format('select * from $/table/ where id = $/id/', {
+    table: repo.cs.table,
+    id
+  })
+}
+
 module.exports = {
-  select
+  select,
+  find
 }

@@ -2,9 +2,11 @@ const { initRepo } = require('../../util/repo-factory')
 const species = require('./species')
 
 module.exports = {
-  // Biometrics: require('./biometrics'),
+  AnimalEncounters: require('./animal-encounters'),
+  Marks: require('./marks'),
+  Medications: require('./medications'),
+  Biometrics: require('./biometrics'),
+  Samples: require('./samples'),
   Vitals: require('./vitals'),
-  // Samples: require('./samples'),
-  // Medications: require('./medications'),
   Species: initRepo({ fields: species.fields, table: species.table })
 }

@@ -3,32 +3,12 @@ const { db } = require('./../../db')
 
 module.exports = {
   Query: {
-    // getSpecies: async (parent, args, context, info) => {
-    //   const { limit, filter } = args
-    //   const sql = `
-    //     select
-    //       id,
-    //       common_name,
-    //       species_name,
-    //       t_phylum,
-    //       t_class,
-    //       t_order,
-    //       t_family,
-    //       genus,
-    //       species,
-    //       subspecies,
-    //       species_group
-    //     from species
-    //   `
-
-    //   return db.many('$/sql:raw/ $/where:raw/ $/pagination:raw/', {
-    //     sql,
-    //     where: sqlizeFilter(filter),
-    //     pagination: offsetPagination(limit)
-    //   })
-    // }
     getSpecies: async (parent, args, context, info) => {
       return db.any(db.species.select(args))
+    },
+
+    getSpeciesById: async (parent, args, context, info) => {
+      return db.oneOrNone(db.species.find(args))
     }
   }
 }

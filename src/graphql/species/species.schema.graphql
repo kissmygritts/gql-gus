@@ -22,4 +22,5 @@ type Query {
     filter: SpeciesFilterInput
     limit: OffsetPaginationInput
   ): [Species]
+  getSpeciesById (id: ID!): Species
 }

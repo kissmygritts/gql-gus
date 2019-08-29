@@ -1,5 +1,5 @@
 const { pipe } = require('./index')
-const { select } = require('./query-formatters')
+const { select, find } = require('./query-formatters')
 
 const withPgpContext = ({ db, pgp }) => repo => ({
   ...repo,
@@ -12,16 +12,17 @@ const withColumnSet = ({ fields, table }) => repo => ({
   cs: repo.pgp.helpers.ColumnSet(fields, { table: { table: table } })
 })
 
-const withSelect = () => repo => ({
+const withQueryFormatters = () => repo => ({
   ...repo,
-  select: select(repo)
+  select: select(repo),
+  find: find(repo)
 })
 
 const initRepo = ({ fields, table }) => ({ db, pgp }) => {
   return pipe(
     withPgpContext({ db, pgp }),
     withColumnSet({ fields, table }),
-    withSelect()
+    withQueryFormatters()
   )({})
 }
 

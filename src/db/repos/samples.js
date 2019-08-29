@@ -1,26 +1,24 @@
-// TODO: med attributes (json) type
-const cs = [
-  {
-    name: 'id'
-  }, {
-    name: 'encounter_id'
-  }, {
-    name: 'n_samples'
-  }, {
-    name: 'notes'
-  }
-]
+const findBatchSql = `select * from samples where encounter_id in ($/ids:csv/)`
 
-class SamplesRepository {
-  constructor (db, pgp) {
-    this.db = db
-    this.pgp = pgp
-    this.cs = new pgp.helpers.ColumnSet(cs, { table: 'samples' })
-  }
+// const cs = [
+//   {
+//     name: 'id'
+//   }, {
+//     name: 'encounter_id'
+//   }, {
+//     name: 'n_samples'
+//   }, {
+//     name: 'notes'
+//   }
+// ]
 
-  async findByEncounterIds (ids) {
-    return this.db.any('select id, encounter_id, sample, n_samples, notes from samples where encounter_id in ($/ids:csv/)', ids)
+const SampleRepo = (db, pgp) => {
+  this.db = db
+  this.pgp = pgp
+
+  return {
+    findBatch: ids => this.db.any(findBatchSql, ids)
   }
 }
 
-module.exports = SamplesRepository
+module.exports = SampleRepo

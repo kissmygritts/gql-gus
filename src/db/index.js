@@ -3,20 +3,24 @@ const pgPromise = require('pg-promise')
 const monitor = require('pg-monitor')
 const { pgsqlUri, environment } = require('./../config')
 const {
-//   Biometrics,
+  AnimalEncounters,
+  Biometrics,
+  Marks,
+  Medications,
+  Samples,
   Vitals
-//   Samples,
-//   Medications
 } = require('./repos')
 const repos = require('./repos')
 
 const initOptions = {
   promiseLib: promise,
   extend (obj, dc) {
-    // obj.biometrics = new Biometrics(obj, pgp)
-    obj.vitals = new Vitals(obj, pgp)
-    // obj.samples = new Samples(obj, pgp)
-    // obj.medications = new Medications(obj, pgp)
+    obj.animalEncounters = AnimalEncounters(obj, pgp)
+    obj.biometrics = Biometrics(obj, pgp)
+    obj.marks = Marks(obj, pgp)
+    obj.medications = Medications(obj, pgp)
+    obj.vitals = Vitals(obj, pgp)
+    obj.samples = Samples(obj, pgp)
     obj.species = repos.Species({ db: obj, pgp })
   }
 }
@@ -29,7 +33,5 @@ if (environment === 'development') {
   console.log(pgsqlUri)
   monitor.attach(initOptions)
 }
-
-console.log('from db index')
 
 module.exports = { db, pgp }
