@@ -1,3 +1,4 @@
+const format = require('pg-promise').as.format
 const { sqlizeFilter, offsetPagination } = require('./pgsql-helpers')
 
 const select = repo => args => {
@@ -16,7 +17,6 @@ const select = repo => args => {
 }
 
 const find = repo => args => {
-  console.log(args)
   const { id } = args
   const format = repo.pgp.as.format
 
@@ -26,7 +26,16 @@ const find = repo => args => {
   })
 }
 
+const findBatch = ({ table, field, ids }) => {
+  // TODO: get table automatically, from the cs, using the repo? or
+  // make it more specific and a facotry pattern... if(table != marks) ...etc?
+  const sql = 'select * from $/table:name/ where $/field:name/ in ($/ids:csv/)'
+  console.log({ table, field, ids })
+  return format(sql, { table, field, ids })
+}
+
 module.exports = {
   select,
-  find
+  find,
+  findBatch
 }

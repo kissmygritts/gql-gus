@@ -1,4 +1,4 @@
-const findBatchSql = `select * from vitals where encounter_id in ($/ids:csv/)`
+const { findBatch } = require('./../../util/query-formatters')
 
 // const cs = [
 //   {
@@ -21,7 +21,11 @@ const VitalRepo = (db, pgp) => {
   this.pgp = pgp
 
   return {
-    findBatch: ids => this.db.any(findBatchSql, ids)
+    findBatch: ({ ids }) => this.db.any(findBatch({
+      table: 'vitals',
+      field: 'encounter_id',
+      ids
+    }))
   }
 }
 module.exports = VitalRepo

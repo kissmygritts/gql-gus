@@ -1,4 +1,5 @@
 const sql = require('../sql').marks
+const { findBatch } = require('./../../util/query-formatters')
 
 const BiometricRepo = (db, pgp) => {
   this.db = db
@@ -6,7 +7,11 @@ const BiometricRepo = (db, pgp) => {
 
   return {
     all: (args) => this.db.any(sql.all),
-    findBatch: (ids) => this.db.any(sql.findBatch, ids)
+    findBatch: ({ ids }) => this.db.any(findBatch({
+      table: 'biometrics',
+      field: 'encounter_id',
+      ids
+    }))
   }
 }
 

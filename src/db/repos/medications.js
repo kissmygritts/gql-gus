@@ -1,4 +1,4 @@
-const findBatchSql = `select * from medications where encounter_id in ($/ids:csv/)`
+const { findBatch } = require('./../../util/query-formatters')
 // const cs = [
 //   {
 //     name: 'id'
@@ -24,7 +24,11 @@ const MedicationRepo = (db, pgp) => {
   this.pgp = pgp
 
   return {
-    findBatch: (ids) => this.db.any(findBatchSql, ids)
+    findBatch: ({ ids }) => this.db.any(findBatch({
+      table: 'medications',
+      field: 'encounter_id',
+      ids
+    }))
   }
 }
 
