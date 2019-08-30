@@ -1,6 +1,6 @@
 {
   "name": "gql-gus",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "GraphQL api for GUS system",
   "main": "server.js",
   "scripts": {
