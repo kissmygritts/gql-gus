@@ -4,7 +4,7 @@ const monitor = require('pg-monitor')
 const { pgsqlUri, environment } = require('./../config')
 const {
   AnimalEncounters,
-  Biometrics,
+  // Biometrics,
   Marks,
   Medications,
   Samples,
@@ -16,7 +16,7 @@ const initOptions = {
   promiseLib: promise,
   extend (obj, dc) {
     obj.animalEncounters = AnimalEncounters(obj, pgp)
-    obj.biometrics = Biometrics(obj, pgp)
+    obj.biometrics = repos.Biometrics({ db: obj, pgp })
     obj.marks = Marks(obj, pgp)
     obj.medications = Medications(obj, pgp)
     obj.vitals = Vitals(obj, pgp)
@@ -29,8 +29,8 @@ const pgp = pgPromise(initOptions)
 const db = pgp(pgsqlUri)
 
 if (environment === 'development') {
-  console.log(environment)
-  console.log(pgsqlUri)
+  // console.log(environment)
+  // console.log(pgsqlUri)
   monitor.attach(initOptions)
 }
 

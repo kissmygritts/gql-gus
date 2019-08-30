@@ -10,6 +10,17 @@ type Biometric {
   units: String
 }
 
+input CreateBiometricInput {
+  encounter_id: ID!
+  measurement: String!
+  value: Float!
+  units: String
+}
+
 type Query {
   getBiometrics: [Biometric]
+}
+
+type Mutation {
+  createBiometric (input: CreateBiometricInput): Biometric
 }

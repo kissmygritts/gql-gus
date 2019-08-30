@@ -34,8 +34,13 @@ const findBatch = ({ table, field, ids }) => {
   return format(sql, { table, field, ids })
 }
 
+const createOne = repo => data => {
+  return repo.pgp.helpers.insert(data, repo.cs) + ' returning *'
+}
+
 module.exports = {
   select,
   find,
-  findBatch
+  findBatch,
+  createOne
 }
