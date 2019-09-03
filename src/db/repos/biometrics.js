@@ -25,6 +25,7 @@ const fields = [{
   def: null
 }]
 const table = 'biometrics'
+const extend = repo => ({})
 
 // const cs = new pgp.helpers.ColumnSet(fields, { table: table })
 
@@ -50,5 +51,5 @@ const table = 'biometrics'
 //   }
 // }
 
-const BiometricRepo = Repo({ fields, table })
+const BiometricRepo = Repo({ fields, table })({ extend: extend })
 module.exports = BiometricRepo

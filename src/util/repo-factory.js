@@ -1,15 +1,15 @@
+const pgp = require('pg-promise')()
 const { pipe } = require('./index')
 const { select, find, createOne, findBatch } = require('./query-formatters')
 
-const withPgpContext = ({ db, pgp }) => repo => ({
+const withPgpContext = ({ pgp }) => repo => ({
   ...repo,
-  db,
   pgp
 })
 
 const withColumnSet = ({ fields, table }) => repo => ({
   ...repo,
-  cs: new repo.pgp.helpers.ColumnSet(fields, { table: { table: table } })
+  cs: new pgp.helpers.ColumnSet(fields, { table: { table } })
 })
 
 const withQueryFormatters = () => repo => ({
@@ -28,11 +28,17 @@ const initRepo = ({ fields, table }) => ({ db, pgp }) => {
   )({})
 }
 
-const Repo = ({ fields, table }) => ({ db, pgp }) => {
+const extendRepo = ({ extend }) => repo => ({
+  ...repo,
+  ...extend(repo)
+})
+
+const Repo = ({ fields, table }) => ({ extend }) => ({ pgp }) => {
   return pipe(
-    withPgpContext({ db, pgp }),
+    withPgpContext({ pgp }),
     withColumnSet({ fields, table }),
-    withQueryFormatters()
+    withQueryFormatters(),
+    extendRepo({ extend })
   )({})
 }
 

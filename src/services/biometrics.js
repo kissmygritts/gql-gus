@@ -1,4 +1,5 @@
 const { db } = require('./../db')
+const { Biometrics } = require('./../db/repos')
 
 // here is an example of using the initialized repo in
 // as service that is called from the resolver
@@ -8,5 +9,5 @@ const { db } = require('./../db')
 // what is the service layer?
 
 module.exports = {
-  createOne: ({ input }) => db.oneOrNone(db.biometrics.createOne(input))
+  createOne: ({ input }) => db.oneOrNone(Biometrics.createOne(input))
 }

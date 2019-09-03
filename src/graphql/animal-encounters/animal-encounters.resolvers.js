@@ -1,10 +1,9 @@
 const { db } = require('./../../db')
+const animalEncounters = require('./../../services/animal-encounters')
 
 module.exports = {
   Query: {
-    getAnimalEncounters: async (parent, args, context, info) => {
-      return db.animalEncounters.all(args)
-    }
+    getAnimalEncounters: async (parent, args, context, info) => animalEncounters.all(args)
   },
 
   AnimalEncounter: {
