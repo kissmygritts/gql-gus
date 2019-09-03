@@ -29,9 +29,10 @@ const sql = require('../sql').animalEncounters
 const { offsetPagination, sqlizeFilter } = require('./../../util/pgsql-helpers')
 
 const ChildLoader = ({ model, field, db }) => {
-  // TODO: check loadChildren from old api
+  // db is required because of the order in which things are instantiated
   return new DataLoader(async keys => {
-    const data = await db[model].findBatch({ ids: keys })
+    const query = db[model].findBatch({ table: model, field: field, ids: keys })
+    const data = await db.any(query)
     return keys.map(k => data.filter(o => o[field] === k))
   })
 }

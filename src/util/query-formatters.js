@@ -26,7 +26,7 @@ const find = repo => args => {
   })
 }
 
-const findBatch = ({ table, field, ids }) => {
+const findBatch = repo => ({ table, field, ids }) => {
   // TODO: get table automatically, from the cs, using the repo? or
   // make it more specific and a facotry pattern... if(table != marks) ...etc?
   const sql = 'select * from $/table:name/ where $/field:name/ in ($/ids:csv/)'

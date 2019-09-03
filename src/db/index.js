@@ -34,4 +34,6 @@ if (environment === 'development') {
   monitor.attach(initOptions)
 }
 
+// console.log(db.biometrics)
+
 module.exports = { db, pgp }

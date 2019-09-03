@@ -1,5 +1,5 @@
 const { pipe } = require('./index')
-const { select, find, createOne } = require('./query-formatters')
+const { select, find, createOne, findBatch } = require('./query-formatters')
 
 const withPgpContext = ({ db, pgp }) => repo => ({
   ...repo,
@@ -16,7 +16,8 @@ const withQueryFormatters = () => repo => ({
   ...repo,
   select: select(repo),
   find: find(repo),
-  createOne: createOne(repo)
+  createOne: createOne(repo),
+  findBatch: findBatch(repo)
 })
 
 const initRepo = ({ fields, table }) => ({ db, pgp }) => {
