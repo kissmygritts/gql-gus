@@ -3,8 +3,22 @@ type Medication {
   encounter_id: ID
   medication: String
   med_time: Time
-  med_dose: String
+  med_dose: Float
   med_unit: String
   med_method: String
   med_notes: String
+}
+
+input CreateMedicationInput {
+  encounter_id: ID!
+  medication: String!
+  med_time: Time
+  med_dose: Float
+  med_unit: String
+  med_method: String
+  med_notes: String
+}
+
+type Mutation {
+  createMedication (input: CreateMedicationInput): Medication
 }

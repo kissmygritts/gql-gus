@@ -27,5 +27,5 @@ const fields = [{
 const table = 'biometrics'
 const extend = repo => ({})
 
-const BiometricRepo = Repo({ fields, table })({ extend: extend })
+const BiometricRepo = Repo({ fields, table })({ extend })
 module.exports = BiometricRepo

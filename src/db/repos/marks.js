@@ -1,16 +1,23 @@
-const { findBatch } = require('./../../util/query-formatters')
+const { Repo } = require('./../../util/repo-factory')
 
-const MarkRepo = (db, pgp) => {
-  this.db = db
-  this.pgp = pgp
+const fields = [{
+  name: 'animal_id'
+}, {
+  name: 'mark_id'
+}, {
+  name: 'mark_type'
+}, {
+  name: 'mark_color',
+  def: null
+}, {
+  name: 'mark_location'
+}, {
+  name: 'notes',
+  def: null
+}]
+const table = 'marks'
+const extend = repo => ({})
 
-  return {
-    findBatch: ({ ids }) => this.db.any(findBatch({
-      table: 'marks',
-      field: 'animal_id',
-      ids
-    }))
-  }
-}
+const MarkRepo = Repo({ fields, table })({ extend })
 
 module.exports = MarkRepo

@@ -5,3 +5,14 @@ type Sample {
   n_samples: Float
   notes: String
 }
+
+input CreateSampleInput {
+  encounter_id: ID!
+  sample: String!
+  n_samples: Int
+  notes: String
+}
+
+type Mutation {
+  createSample (input: CreateSampleInput): Sample
+}

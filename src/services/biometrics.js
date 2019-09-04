@@ -1,5 +1,4 @@
 const DataLoader = require('dataloader')
-const { db } = require('./../db')
 const { Biometrics } = require('./../db/repos')
 
 // here is an example of using the initialized repo in

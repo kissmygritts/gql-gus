@@ -10,6 +10,15 @@ type Mark {
   updated_at: DateTime
 }
 
-type Query {
-  getMarks: [Mark]
+input CreateMarkInput {
+  animal_id: ID!
+  mark_id: String!
+  mark_type: String!
+  mark_color: String
+  mark_location: String!
+  notes: String
+}
+
+type Mutation {
+  createMark (input: CreateMarkInput): Mark
 }

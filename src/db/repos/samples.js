@@ -1,28 +1,19 @@
-const { findBatch } = require('./../../util/query-formatters')
-
-// const cs = [
-//   {
-//     name: 'id'
-//   }, {
-//     name: 'encounter_id'
-//   }, {
-//     name: 'n_samples'
-//   }, {
-//     name: 'notes'
-//   }
-// ]
-
-const SampleRepo = (db, pgp) => {
-  this.db = db
-  this.pgp = pgp
-
-  return {
-    findBatch: ({ ids }) => this.db.any(findBatch({
-      table: 'samples',
-      field: 'encounter_id',
-      ids
-    }))
+const { Repo } = require('./../../util/repo-factory')
+const fields = [
+  {
+    name: 'encounter_id'
+  }, {
+    name: 'sample'
+  }, {
+    name: 'n_samples',
+    def: 1
+  }, {
+    name: 'notes',
+    def: null
   }
-}
+]
+const table = 'samples'
+const extend = repo => ({})
 
+const SampleRepo = Repo({ fields, table })({ extend })
 module.exports = SampleRepo
