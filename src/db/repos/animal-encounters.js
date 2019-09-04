@@ -18,10 +18,12 @@ const fields = [
 const table = 'animal_encounters'
 
 const extend = repo => ({
-  select: ({ filter, limit }) => repo.pgp.as.format(sql.all, {
-    where: sqlizeFilter(filter),
-    pagination: offsetPagination(limit)
-  })
+  findAll: ({ filter, limit }) => {
+    return repo.db.manyOrNone(sql.all, {
+      where: sqlizeFilter(filter),
+      pagination: offsetPagination(limit)
+    })
+  }
 })
 
 const AnimalEncounterRepo = Repo({ fields, table })({ extend })

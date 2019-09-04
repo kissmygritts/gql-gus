@@ -8,7 +8,6 @@ module.exports = {
   },
 
   AnimalEncounter: {
-    // biometrics: async (parent, args, context, info) => db.animalEncounters.biometricLoader.load(parent.id),
     biometrics: async (parent, args, context, info) => biometrics.LoadBiometricsAsChildProp.load(parent.id),
     marks: async (parent, args, context, info) => db.animalEncounters.markLoader.load(parent.animal_id),
     medications: async (parent, args, context, info) => db.animalEncounters.medicationLoader.load(parent.id),

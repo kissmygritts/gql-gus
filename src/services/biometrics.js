@@ -12,12 +12,17 @@ const { Biometrics } = require('./../db/repos')
 module.exports = {
   createOne: ({ input }) => db.oneOrNone(Biometrics.createOne(input)),
   LoadBiometricsAsChildProp: new DataLoader(async keys => {
-    const query = Biometrics.findBatch({
+    // const query = Biometrics.findBatch({
+    //   table: 'biometrics',
+    //   field: 'encounter_id',
+    //   ids: keys
+    // })
+    // const data = await db.any(query)
+    const data = await Biometrics.findBatch({
       table: 'biometrics',
       field: 'encounter_id',
       ids: keys
     })
-    const data = await db.any(query)
     return keys.map(k => data.filter(o => o.encounter_id === k))
   })
 }
