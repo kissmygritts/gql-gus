@@ -1,9 +1,11 @@
 const pgp = require('pg-promise')()
 const { pipe } = require('./index')
 const { select, find, createOne, findBatch } = require('./query-formatters')
+const queryRunners = require('./query-runners')
 
-const withPgpContext = ({ pgp }) => repo => ({
+const withPgpContext = ({ db, pgp }) => repo => ({
   ...repo,
+  db,
   pgp
 })
 
@@ -14,10 +16,18 @@ const withColumnSet = ({ fields, table }) => repo => ({
 
 const withQueryFormatters = () => repo => ({
   ...repo,
-  select: select(repo),
-  find: find(repo),
-  createOne: createOne(repo),
-  findBatch: findBatch(repo)
+  formatters: {
+    select: select(repo),
+    find: find(repo),
+    createOne: createOne(repo),
+    findBatch: findBatch(repo)
+  }
+})
+
+const withQueryRunners = () => repo => ({
+  ...repo,
+  findAll: queryRunners.findAll(repo),
+  findBatch: queryRunners.findBatch(repo)
 })
 
 const initRepo = ({ fields, table }) => ({ db, pgp }) => {
@@ -33,11 +43,12 @@ const extendRepo = ({ extend }) => repo => ({
   ...extend(repo)
 })
 
-const Repo = ({ fields, table }) => ({ extend }) => ({ pgp }) => {
+const Repo = ({ fields, table }) => ({ extend }) => ({ db, pgp }) => {
   return pipe(
-    withPgpContext({ pgp }),
+    withPgpContext({ db, pgp }),
     withColumnSet({ fields, table }),
     withQueryFormatters(),
+    withQueryRunners(),
     extendRepo({ extend })
   )({})
 }

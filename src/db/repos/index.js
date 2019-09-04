@@ -1,12 +1,12 @@
 // const { initRepo } = require('../../util/repo-factory')
 // const species = require('./species')
-const { pgp } = require('./../index')
+const { db, pgp } = require('./../index')
 const BiometricRepo = require('./biometrics')
 const AnimalEncounterRepo = require('./animal-encounters')
 
 module.exports = {
-  AnimalEncounters: AnimalEncounterRepo({ pgp }),
-  Biometrics: BiometricRepo({ pgp })
+  AnimalEncounters: AnimalEncounterRepo({ db, pgp }),
+  Biometrics: BiometricRepo({ db, pgp })
   // Marks: require('./marks'),
   // Medications: require('./medications'),
   // Samples: require('./samples'),
