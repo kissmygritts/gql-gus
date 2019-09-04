@@ -1,3 +1,4 @@
+const DataLoader = require('dataloader')
 const { db } = require('./../db')
 const { Biometrics } = require('./../db/repos')
 
@@ -9,5 +10,14 @@ const { Biometrics } = require('./../db/repos')
 // what is the service layer?
 
 module.exports = {
-  createOne: ({ input }) => db.oneOrNone(Biometrics.createOne(input))
+  createOne: ({ input }) => db.oneOrNone(Biometrics.createOne(input)),
+  LoadBiometricsAsChildProp: new DataLoader(async keys => {
+    const query = Biometrics.findBatch({
+      table: 'biometrics',
+      field: 'encounter_id',
+      ids: keys
+    })
+    const data = await db.any(query)
+    return keys.map(k => data.filter(o => o.encounter_id === k))
+  })
 }
