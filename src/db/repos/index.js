@@ -1,5 +1,3 @@
-// const { initRepo } = require('../../util/repo-factory')
-// const species = require('./species')
 const { db, pgp } = require('./../index')
 const BiometricRepo = require('./biometrics')
 const AnimalEncounterRepo = require('./animal-encounters')

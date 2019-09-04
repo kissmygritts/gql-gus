@@ -10,14 +10,11 @@ const { Biometrics } = require('./../db/repos')
 // what is the service layer?
 
 module.exports = {
-  createOne: ({ input }) => db.oneOrNone(Biometrics.createOne(input)),
+  // FIXME: if createOne is called, then findAll is called the new entry isn't returned
+  // because of the DataLoader
+  createOne: ({ input }) => Biometrics.createOne(input),
+
   LoadBiometricsAsChildProp: new DataLoader(async keys => {
-    // const query = Biometrics.findBatch({
-    //   table: 'biometrics',
-    //   field: 'encounter_id',
-    //   ids: keys
-    // })
-    // const data = await db.any(query)
     const data = await Biometrics.findBatch({
       table: 'biometrics',
       field: 'encounter_id',

@@ -10,6 +10,9 @@ const withPgpContext = ({ db, pgp }) => repo => ({
 })
 
 const withColumnSet = ({ fields, table }) => repo => ({
+  // a ColumnSet isn't always needed when the repo is initialized
+  // TODOD: find a way to set { fields, table } as optional,
+  // if not provided return an empy object?
   ...repo,
   cs: new pgp.helpers.ColumnSet(fields, { table: { table } })
 })
@@ -26,6 +29,7 @@ const withQueryFormatters = () => repo => ({
 
 const withQueryRunners = () => repo => ({
   ...repo,
+  createOne: queryRunners.createOne(repo),
   findAll: queryRunners.findAll(repo),
   findBatch: queryRunners.findBatch(repo)
 })

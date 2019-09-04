@@ -1,9 +1,12 @@
-const { db } = require('./../db')
-
-const findAll = repo => args => db.manyOrNone(repo.formatters.select(args))
+const findAll = repo => args =>
+  repo.db.manyOrNone(repo.formatters.select(args))
 
 const findBatch = repo => ({ table, field, ids }) =>
-  db.manyOrNone(repo.formatters.findBatch({ table, field, ids }))
+  repo.db.manyOrNone(repo.formatters.findBatch({ table, field, ids }))
+
+const createOne = repo => data => {
+  return repo.db.oneOrNone(repo.formatters.createOne(data, repo.cs))
+}
 
 // const queriesWithRepo = repo => ({
 //   findAll: findAll(repo),
@@ -11,6 +14,7 @@ const findBatch = repo => ({ table, field, ids }) =>
 // })
 
 module.exports = {
+  createOne,
   findAll,
   findBatch
 }

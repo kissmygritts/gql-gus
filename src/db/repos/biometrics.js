@@ -27,29 +27,5 @@ const fields = [{
 const table = 'biometrics'
 const extend = repo => ({})
 
-// const cs = new pgp.helpers.ColumnSet(fields, { table: table })
-
-// const BiometricRepo = (db, pgp) => {
-//   this.db = db
-//   this.pgp = pgp
-
-//   return {
-//     // query runners
-//     all: (args) => this.db.any(sql.all),
-//     findBatch: ({ ids }) => this.db.any(findBatch({
-//       table: 'biometrics',
-//       field: 'encounter_id',
-//       ids
-//     })),
-
-//     create: ({ input }) => this.db.oneOrNone(
-//       pgp.helpers.insert(input, cs) + ' returning *'
-//     ),
-
-//     // utilities
-//     cs
-//   }
-// }
-
 const BiometricRepo = Repo({ fields, table })({ extend: extend })
 module.exports = BiometricRepo
