@@ -5,8 +5,11 @@ const findBatch = repo => ({ table, field, ids }) =>
   repo.db.manyOrNone(repo.formatters.findBatch({ table, field, ids }))
 
 const findById = repo => ({ id }) => {
-  const sql = 'select * from $/table:name/ where id = $/id/'
-  return repo.db.oneOrNone(sql, { id })
+  const sql = 'select * from $/table/ where id = $/id/'
+  return repo.db.oneOrNone(sql, {
+    table: repo.cs.table,
+    id
+  })
 }
 
 const createOne = repo => data => {
