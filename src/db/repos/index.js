@@ -5,6 +5,7 @@ const MarkRepo = require('./marks')
 const SampleRepo = require('./samples')
 const MedicationRepo = require('./medications')
 const VitalRepo = require('./vitals')
+const SpeciesRepo = require('./species')
 
 module.exports = {
   AnimalEncounters: AnimalEncounterRepo({ db, pgp }),
@@ -12,6 +13,6 @@ module.exports = {
   Marks: MarkRepo({ db, pgp }),
   Medications: MedicationRepo({ db, pgp }),
   Samples: SampleRepo({ db, pgp }),
+  Species: SpeciesRepo({ db, pgp }),
   Vitals: VitalRepo({ db, pgp })
-  // Species: initRepo({ fields: species.fields, table: species.table })
 }

@@ -1,11 +1,9 @@
 const { db } = require('./../../db')
-// const { offsetPagination, sqlizeFilter } = require('./../../util')
+const species = require('./../../services/species')
 
 module.exports = {
   Query: {
-    getSpecies: async (parent, args, context, info) => {
-      return db.any(db.species.select(args))
-    },
+    getSpecies: async (parent, args, context, info) => species.findAll(args),
 
     getSpeciesById: async (parent, args, context, info) => {
       return db.oneOrNone(db.species.find(args))
