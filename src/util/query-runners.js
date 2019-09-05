@@ -4,6 +4,11 @@ const findAll = repo => args =>
 const findBatch = repo => ({ table, field, ids }) =>
   repo.db.manyOrNone(repo.formatters.findBatch({ table, field, ids }))
 
+const findById = repo => ({ id }) => {
+  const sql = 'select * from $/table:name/ where id = $/id/'
+  return repo.db.oneOrNone(sql, { id })
+}
+
 const createOne = repo => data => {
   console.log(repo.formatters.createOne(data, repo.cs))
   return repo.db.oneOrNone(repo.formatters.createOne(data, repo.cs))
@@ -17,5 +22,6 @@ const createOne = repo => data => {
 module.exports = {
   createOne,
   findAll,
-  findBatch
+  findBatch,
+  findById
 }

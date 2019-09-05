@@ -31,7 +31,8 @@ const withQueryRunners = () => repo => ({
   ...repo,
   createOne: queryRunners.createOne(repo),
   findAll: queryRunners.findAll(repo),
-  findBatch: queryRunners.findBatch(repo)
+  findBatch: queryRunners.findBatch(repo),
+  findById: queryRunners.findById(repo)
 })
 
 const initRepo = ({ fields, table }) => ({ db, pgp }) => {
