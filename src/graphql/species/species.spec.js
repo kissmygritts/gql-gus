@@ -4,35 +4,20 @@ const { db, pgp } = require('./../../db')
 const { typeDefs, resolvers } = require('./..')
 const species = require('./../../tests/species-fixture.json')
 
-// BEFORE EVERY TESTS
-// 1. clear species table
-db.none('truncate species restart identity cascade')
-// 2. seed species table
-const columns = Object.keys(species[0])
-db.any(pgp.helpers.insert(species, columns, 'species'))
-// 3. run test
-// 4. close connection
-pgp.end()
-
 const schema = makeExecutableSchema({ typeDefs, resolvers })
 const gqlRunner = (query, variables) => {
-  return graphql(schema, query, null, {}, variables)
+  return graphql(schema, query, null, null, variables)
 }
 
-beforeAll(() => {
-  // delete any existing data before running tests
-  db.none('truncate species restart identity cascade')
+beforeAll(async () => {
+  const truncateSql = 'truncate species restart identity cascade'
+  const insertSql = pgp.helpers.insert(species, Object.keys(species[0]), 'species')
 
-  // seed database before running tests
-  const columns = Object.keys(species[0])
-  db.any(pgp.helpers.insert(species, columns, 'species'))
+  await db.any(pgp.helpers.concat([truncateSql, insertSql]))
 })
 
-afterAll(() => {
-  // delete any data added to the database
-  db.none('truncate species restart identity cascade')
-
-  // close connection to database (wont every end without closing connection)
+afterAll(async () => {
+  await db.none('truncate species restart identity cascade')
   pgp.end()
 })
 
@@ -51,69 +36,105 @@ const GET_SPECIES_QUERY = /* GraphQL */`
     }
   }
 `
-// const SPECIES_QUERY_FILTER = /* GraphQL */`
-//     query {
-//       getSpecies (
-//         filter: {
-//           common_name: { like: "%deer%" }
-//         }
-//       ){
-//         common_name
-//         species_name
-//         id
-//       }
-//     }
-//   `
 
-// const SPECIES_QUERY_LIMIT = /* GraphQL */`
-//     query {
-//       getSpecies (
-//         limit: { first: 2 }
-//       ){
-//         common_name
-//         species_name
-//         id
-//       }
-//     }
-//   `
+const GET_SPECIES_BY_ID = /* GraphQL */`
+  query ( $id: ID!) {
+    getSpeciesById (id: $id) {
+      id
+    }
+  }
+`
 
-describe('species query', () => {
-  test('should return data without any args', async () => {
-    const response = await gqlRunner(GET_SPECIES_QUERY, {})
-    expect(response).toHaveProperty('data')
+describe('getSpecies', () => {
+  describe('without variables', () => {
+    test('should return all results', async () => {
+      const response = await gqlRunner(GET_SPECIES_QUERY, {})
+      expect(response.data.getSpecies).toHaveLength(species.length)
+    })
+  })
+
+  describe('with limit variables', () => {
+    test('first: 1 returns one result', async () => {
+      const response = await gqlRunner(GET_SPECIES_QUERY, { limitVars: { first: 1 } })
+      expect(response.data.getSpecies).toHaveLength(1)
+    })
+
+    test('if first is negative, return error', async () => {
+      const response = await gqlRunner(GET_SPECIES_QUERY, { limitVars: { first: -1 } })
+      expect(response).toHaveProperty('errors')
+    })
+
+    test('offset: 1 returns two results', async () => {
+      const response = await gqlRunner(GET_SPECIES_QUERY, { limitVars: { offset: 1 } })
+      expect(response.data.getSpecies).toHaveLength(2)
+    })
+
+    test('if offset is negative, return error', async () => {
+      const response = await gqlRunner(GET_SPECIES_QUERY, { limitVars: { offset: -1 } })
+      expect(response).toHaveProperty('errors')
+    })
+  })
+
+  describe('with filter variables', () => {
+    describe('common name', () => {
+      test('like bison', async () => {
+        const params = {
+          filterVars: {
+            common_name: {
+              like: '%bison%'
+            }
+          }
+        }
+        const { data } = await gqlRunner(GET_SPECIES_QUERY, params)
+        expect(data.getSpecies[0]).toHaveProperty('common_name', 'American bison')
+      })
+
+      test('equals elk', async () => {
+        const params = {
+          filterVars: {
+            common_name: {
+              eq: 'elk'
+            }
+          }
+        }
+        const { data } = await gqlRunner(GET_SPECIES_QUERY, params)
+        expect(data.getSpecies[0]).toHaveProperty('common_name', 'elk')
+      })
+    })
+
+    describe('species name', () => {
+      test('like Cervus', async () => {
+        const params = {
+          filterVars: {
+            species_name: {
+              like: '%Cervus%'
+            }
+          }
+        }
+        const res = await gqlRunner(GET_SPECIES_QUERY, params)
+        expect(res.data.getSpecies[0]).toHaveProperty('species_name', 'Cervus canadensis')
+      })
+
+      test('like is case-sensitive, cervus vs Cervus', async () => {
+        const params = {
+          filterVars: {
+            species_name: {
+              like: '%cervus%'
+            }
+          }
+        }
+        const res = await gqlRunner(GET_SPECIES_QUERY, params)
+        expect(res.data.getSpecies).toHaveLength(0)
+      })
+    })
   })
 })
 
-//   test('data.species should be an array', async () => {
-//     const response = await gqlRunner(SPECIES_QUERY, {})
-//     expect(response.data.getSpecies).toBeInstanceOf(Array)
-//   })
-
-//   test('data.species[0] should have subspecies property', async () => {
-//     const response = await gqlRunner(SPECIES_QUERY, {})
-//     expect(response.data.getSpecies[0]).toHaveProperty('subspecies')
-//   })
-// })
-
-// describe('species query: filter', () => {
-//   test('should return data with filter argument', async () => {
-//     const response = await gqlRunner(SPECIES_QUERY_FILTER, {})
-//     expect(response).toHaveProperty('data')
-//   })
-
-//   test(`filter: { common_name: { like: "%deer%" } } returns 8 records'`, async () => {
-//     const response = await gqlRunner(SPECIES_QUERY_FILTER, {})
-//     expect(response.data.getSpecies).toHaveLength(8)
-//   })
-// })
-
-// describe('species query: limit', () => {
-//   test('should return data with limit argument', async () => {
-//     const response = await gqlRunner(SPECIES_QUERY_LIMIT, {})
-//     expect(response).toHaveProperty('data')
-//   })
-
-//   test('limit: { first: 2 } returns 2 records', async () => {
-//     const response = await gqlRunner(SPECIES_QUERY_LIMIT, {})
-//     expect(response.data.getSpecies).toHaveLength(2)
-//   })
+describe('getSpeciesById', () => {
+  test('valid UUID', async () => {
+    const res = await gqlRunner(GET_SPECIES_BY_ID, {
+      id: species[0].id
+    })
+    expect(res.data.getSpeciesById).toHaveProperty('id', species[0].id)
+  })
+})
