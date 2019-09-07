@@ -54,4 +54,88 @@ describe('getAnimalEncounter', () => {
       expect(res.data.getAnimalEncounters).toHaveLength(encounters.length)
     })
   })
+
+  describe('with limit variable', () => {
+    test('first: 1 returns one resulte', async () => {
+      const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, {
+        limit: { first: 1 }
+      })
+      expect(res.data.getAnimalEncounters).toHaveLength(1)
+    })
+
+    test('if first is negative, return error', async () => {
+      const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, {
+        limit: { first: -1 }
+      })
+      expect(res).toHaveProperty('errors')
+    })
+
+    test('offset: 1 returns all but 1 record', async () => {
+      const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, {
+        limit: { offset: 1 }
+      })
+      expect(res.data.getAnimalEncounters).toHaveLength(encounters.length - 1)
+    })
+
+    test('if offset is negative, return error', async () => {
+      const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, {
+        limit: { offset: -1 }
+      })
+      expect(res).toHaveProperty('errors')
+    })
+  })
+
+  describe.only('with filter variables', () => {
+    describe('common name', () => {
+      test('like %lk', async () => {
+        const params = {
+          filter: {
+            common_name: {
+              like: '%lk'
+            }
+          }
+        }
+        const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, params)
+        expect(res.data.getAnimalEncounters).toHaveLength(encounters.length)
+      })
+
+      test('equals elk', async () => {
+        const params = {
+          filter: {
+            common_name: {
+              eq: 'elk'
+            }
+          }
+        }
+        const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, params)
+        expect(res.data.getAnimalEncounters).toHaveLength(encounters.length)
+      })
+    })
+
+    describe('species name', () => {
+      test('like Cervus', async () => {
+        const params = {
+          filter: {
+            species_name: {
+              like: '%Cervus%'
+            }
+          }
+        }
+        const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, params)
+        expect(res.data.getAnimalEncounters[0]).toHaveProperty('species_name', 'Cervus canadensis')
+      })
+
+      test('like is case-sensitive, cervus vs Cervus', async () => {
+        const params = {
+          filter: {
+            species_name: {
+              like: '%cervus%'
+            }
+          }
+        }
+        const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, params)
+        expect(res.data.getAnimalEncounters).toHaveLength(0)
+      })
+    })
+  })
 })
