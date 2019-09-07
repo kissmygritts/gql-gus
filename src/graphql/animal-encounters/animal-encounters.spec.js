@@ -85,7 +85,7 @@ describe('getAnimalEncounter', () => {
     })
   })
 
-  describe.only('with filter variables', () => {
+  describe('with filter variables', () => {
     describe('common name', () => {
       test('like %lk', async () => {
         const params = {
