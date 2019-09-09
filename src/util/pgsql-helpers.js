@@ -35,10 +35,9 @@ const sqlizeFilter = filters => {
   }
 }
 
-const offsetPagination = (limitArgs, pgp) => {
+const offsetPagination = (limitArgs) => {
   if (limitArgs) {
     const { first, offset } = limitArgs
-    console.log(pgp)
 
     const offsetSql = offset ? format('offset $1', offset) : ''
     const firstSql = first ? format('limit $1', first) : ''

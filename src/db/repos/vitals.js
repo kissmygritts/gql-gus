@@ -1,31 +1,24 @@
-const { findBatch } = require('./../../util/query-formatters')
+const { Repo } = require('./../../util/repo-factory')
 
-// const cs = [
-//   {
-//     name: 'id'
-//   }, {
-//     name: 'encounter_id'
-//   }, {
-//     name: 'time_recorded'
-//   }, {
-//     name: 'heart_rate'
-//   }, {
-//     name: 'respiratory_rate'
-//   }, {
-//     name: 'temperature'
-//   }
-// ]
-
-const VitalRepo = (db, pgp) => {
-  this.db = db
-  this.pgp = pgp
-
-  return {
-    findBatch: ({ ids }) => this.db.any(findBatch({
-      table: 'vitals',
-      field: 'encounter_id',
-      ids
-    }))
+const fields = [
+  {
+    name: 'encounter_id'
+  }, {
+    name: 'time_recorded',
+    def: null
+  }, {
+    name: 'heart_rate',
+    def: null
+  }, {
+    name: 'respiratory_rate',
+    def: null
+  }, {
+    name: 'temperature',
+    def: null
   }
-}
+]
+const table = 'vitals'
+const extend = repo => ({})
+
+const VitalRepo = Repo({ fields, table })({ extend })
 module.exports = VitalRepo

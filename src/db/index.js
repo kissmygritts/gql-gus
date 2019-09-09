@@ -2,27 +2,9 @@ const promise = require('bluebird')
 const pgPromise = require('pg-promise')
 const monitor = require('pg-monitor')
 const { pgsqlUri, environment } = require('./../config')
-const {
-  AnimalEncounters,
-  // Biometrics,
-  Marks,
-  Medications,
-  Samples,
-  Vitals
-} = require('./repos')
-const repos = require('./repos')
 
 const initOptions = {
-  promiseLib: promise,
-  extend (obj, dc) {
-    obj.animalEncounters = AnimalEncounters(obj, pgp)
-    obj.biometrics = repos.Biometrics({ db: obj, pgp })
-    obj.marks = Marks(obj, pgp)
-    obj.medications = Medications(obj, pgp)
-    obj.vitals = Vitals(obj, pgp)
-    obj.samples = Samples(obj, pgp)
-    obj.species = repos.Species({ db: obj, pgp })
-  }
+  promiseLib: promise
 }
 
 const pgp = pgPromise(initOptions)
@@ -34,6 +16,6 @@ if (environment === 'development') {
   monitor.attach(initOptions)
 }
 
-// console.log(db.biometrics)
+console.log(pgsqlUri)
 
 module.exports = { db, pgp }

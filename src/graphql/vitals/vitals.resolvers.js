@@ -1,7 +1,7 @@
-const { db } = require('./../../db')
+const vitals = require('./../../services/vitals')
 
 module.exports = {
-  Query: {
-    getVitals: (parent, args, context, info) => db.vitals.selectAll(args)
+  Mutation: {
+    createVital: (parent, args, context, info) => vitals.createOne(args)
   }
 }

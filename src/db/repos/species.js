@@ -1,3 +1,5 @@
+const { Repo } = require('./../../util/repo-factory')
+
 const fields = [
   'common_name',
   'species_name',
@@ -10,10 +12,8 @@ const fields = [
   'subspecies',
   'species_group'
 ]
-
 const table = 'species'
+const extend = repo => ({})
 
-module.exports = {
-  fields,
-  table
-}
+const SpeciesRepo = Repo({ fields, table })({ extend })
+module.exports = SpeciesRepo

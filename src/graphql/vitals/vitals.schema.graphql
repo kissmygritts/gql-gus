@@ -7,6 +7,14 @@ type Vital {
   temperature: Float
 }
 
-type Query {
-  getVitals ( limit: OffsetPaginationInput ): [Vital]
+input CreateVitalInput {
+  encounter_id: ID!
+  time_recorded: Time # TODO: time input is causing issues
+  heart_rate: Float
+  respiratory_rate: Float
+  temperature: Float
+}
+
+type Mutation {
+  createVital (input: CreateVitalInput): Vital
 }

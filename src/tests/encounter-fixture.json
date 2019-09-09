@@ -1,0 +1,86 @@
+[
+  {
+    "id": "7f92794d-c884-4fce-aafb-65b0db14a336",
+    "event_id": "6f104e45-6e9f-44cd-b25b-8c0b4fb8a14e",
+    "animal_id": "407b3e0c-de12-4f40-a902-cb401ba4b44e",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "alive",
+    "age_class": "adult",
+    "sex": "male",
+    "n": 1,
+    "reencounter": false,
+    "relocation": false
+  },
+  {
+    "id": "c2bf3d21-b0ed-4948-88fd-475f77551e48",
+    "event_id": "af20ffce-3b8f-4264-82db-f01061598325",
+    "animal_id": "83676cc6-bef9-4b99-874d-9cbd42bf23fb",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "alive",
+    "age_class": "adult",
+    "sex": "female",
+    "n": 1,
+    "reencounter": false,
+    "relocation": false
+  },
+  {
+    "id": "c3647138-a816-4662-a5b5-3f17f92dd923",
+    "event_id": "4c497280-8705-45d8-a258-327aa4215610",
+    "animal_id": "a1f8cb3a-8901-4644-a19c-4ed68ff3fdc8",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "alive",
+    "age_class": "adult",
+    "sex": "female",
+    "n": 1,
+    "reencounter": false,
+    "relocation": false
+  },
+  {
+    "id": "4e8b143f-d54a-4a86-8be4-32dd73de0ea6",
+    "event_id": "7b72deae-70b1-43da-bb56-ef9b9012af34",
+    "animal_id": "93705489-394f-41f9-afaa-74f59d24408c",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "alive",
+    "age_class": "adult",
+    "sex": "female",
+    "n": 1,
+    "reencounter": false,
+    "relocation": false
+  },
+  {
+    "id": "36be7991-61a4-45ed-a0be-a85bf57f076c",
+    "event_id": "049025dd-99e6-43cc-96b7-e112f4bf4cc1",
+    "animal_id": "93705489-394f-41f9-afaa-74f59d24408c",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "mortality",
+    "age_class": "adult",
+    "sex": "female",
+    "n": 1,
+    "reencounter": true,
+    "relocation": false
+  },
+  {
+    "id": "970e36dc-986d-4540-a646-d047c484eb9c",
+    "event_id": "62288163-063a-450d-85d2-a2f47b8d59c8",
+    "animal_id": "32c5d988-73f3-459e-be23-3c42b827dd8b",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "mortality",
+    "age_class": "adult",
+    "sex": "unk",
+    "n": 1,
+    "reencounter": true,
+    "relocation": false
+  },
+  {
+    "id": "9b3a5614-c07b-4b88-ae56-93000d9b1835",
+    "event_id": "436d56db-2e87-4d00-b360-90a5c0e3a575",
+    "animal_id": "32c5d988-73f3-459e-be23-3c42b827dd8b",
+    "species_id": "d7ac1e0e-a5b3-47e0-96a3-e62b354480d8",
+    "life_status": "alive",
+    "age_class": "adult",
+    "sex": "unk",
+    "n": 1,
+    "reencounter": false,
+    "relocation": false
+  }
+]

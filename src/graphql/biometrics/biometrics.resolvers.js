@@ -1,4 +1,3 @@
-// const { db } = require('./../../db')
 const biometrics = require('./../../services/biometrics')
 
 module.exports = {

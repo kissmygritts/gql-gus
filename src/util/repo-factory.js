@@ -1,5 +1,7 @@
+const pgp = require('pg-promise')()
 const { pipe } = require('./index')
 const { select, find, createOne, findBatch } = require('./query-formatters')
+const queryRunners = require('./query-runners')
 
 const withPgpContext = ({ db, pgp }) => repo => ({
   ...repo,
@@ -8,16 +10,29 @@ const withPgpContext = ({ db, pgp }) => repo => ({
 })
 
 const withColumnSet = ({ fields, table }) => repo => ({
+  // a ColumnSet isn't always needed when the repo is initialized
+  // TODOD: find a way to set { fields, table } as optional,
+  // if not provided return an empy object?
   ...repo,
-  cs: new repo.pgp.helpers.ColumnSet(fields, { table: { table: table } })
+  cs: new pgp.helpers.ColumnSet(fields, { table: { table } })
 })
 
 const withQueryFormatters = () => repo => ({
   ...repo,
-  select: select(repo),
-  find: find(repo),
-  createOne: createOne(repo),
-  findBatch: findBatch(repo)
+  formatters: {
+    select: select(repo),
+    find: find(repo),
+    createOne: createOne(repo),
+    findBatch: findBatch(repo)
+  }
+})
+
+const withQueryRunners = () => repo => ({
+  ...repo,
+  createOne: queryRunners.createOne(repo),
+  findAll: queryRunners.findAll(repo),
+  findBatch: queryRunners.findBatch(repo),
+  findById: queryRunners.findById(repo)
 })
 
 const initRepo = ({ fields, table }) => ({ db, pgp }) => {
@@ -28,11 +43,18 @@ const initRepo = ({ fields, table }) => ({ db, pgp }) => {
   )({})
 }
 
-const Repo = ({ fields, table }) => ({ db, pgp }) => {
+const extendRepo = ({ extend }) => repo => ({
+  ...repo,
+  ...extend(repo)
+})
+
+const Repo = ({ fields, table }) => ({ extend }) => ({ db, pgp }) => {
   return pipe(
     withPgpContext({ db, pgp }),
     withColumnSet({ fields, table }),
-    withQueryFormatters()
+    withQueryFormatters(),
+    withQueryRunners(),
+    extendRepo({ extend })
   )({})
 }
 
