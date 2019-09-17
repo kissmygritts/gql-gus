@@ -15,6 +15,7 @@ from events
       encounters.id,
       species.common_name,
       species.species_name,
+      species.species_group,
       animals.ind_id,
       encounters.life_status,
       encounters.age_class,
