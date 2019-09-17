@@ -11,6 +11,9 @@ module.exports = {
   },
   marks: {
     findBatch: sql('marks/find-batch.sql')
+  },
+  observationFeed: {
+    all: sql('observation-feed/observation-feed.sql')
   }
 }
 

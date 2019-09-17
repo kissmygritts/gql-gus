@@ -56,7 +56,7 @@ describe('getAnimalEncounter', () => {
   })
 
   describe('with limit variable', () => {
-    test('first: 1 returns one resulte', async () => {
+    test('first: 1 returns one result', async () => {
       const res = await gqlRunner(GET_ANIMAL_ENCOUNTERS, {
         limit: { first: 1 }
       })

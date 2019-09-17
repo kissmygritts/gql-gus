@@ -16,6 +16,6 @@ if (environment === 'development') {
   monitor.attach(initOptions)
 }
 
-console.log(pgsqlUri)
+// console.log(pgsqlUri)
 
 module.exports = { db, pgp }
