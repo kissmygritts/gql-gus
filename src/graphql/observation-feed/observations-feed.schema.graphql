@@ -31,10 +31,13 @@ type WildlifeAbundance {
 }
 
 type Query {
+  # getObservationFeed (
+  #   filter: ObservationFeedFilterInput
+  #   limit: OffsetPaginationInput
+  # ): [WildlifeEvent]
   getObservationFeed (
-    filter: ObservationFeedFilterInput
     limit: OffsetPaginationInput
-  ): [WildlifeEvent]
+  ): [ObservationFeed]
 }
 
 input ObservationFeedFilterInput {
@@ -43,4 +46,26 @@ input ObservationFeedFilterInput {
   common_name: StringFilterInput
   species_name: StringFilterInput
   species_group: StringFilterInput
+}
+
+# observation feed, new
+type ObservationFeed {
+  id: ID
+  event_start_timestamp: DateTime
+  source_app: String
+  event_type: String
+  x: Float
+  y: Float
+  encounters_observation_feed: [EncountersObservationFeed]
+}
+
+type EncountersObservationFeed {
+  id: ID
+  common_name: String
+  species_name: String
+  ind_id: String
+  life_status: String
+  age_class: String
+  sex: String
+  n: Int
 }

@@ -4,6 +4,7 @@ const BiometricRepo = require('./biometrics')
 const MarkRepo = require('./marks')
 const SampleRepo = require('./samples')
 const MedicationRepo = require('./medications')
+const ObservationFeedRepo = require('./observation-feed')
 const VitalRepo = require('./vitals')
 const SpeciesRepo = require('./species')
 
@@ -12,6 +13,7 @@ module.exports = {
   Biometrics: BiometricRepo({ db, pgp }),
   Marks: MarkRepo({ db, pgp }),
   Medications: MedicationRepo({ db, pgp }),
+  ObservationFeed: ObservationFeedRepo({ db, pgp }),
   Samples: SampleRepo({ db, pgp }),
   Species: SpeciesRepo({ db, pgp }),
   Vitals: VitalRepo({ db, pgp })
