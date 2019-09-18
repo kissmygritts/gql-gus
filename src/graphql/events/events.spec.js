@@ -42,6 +42,9 @@ const GET_EVENTS = /* GraphQL */`
       id
       activity_id
       source_app
+      animal_encounters {
+        id
+      }
     }
   }
 `
@@ -51,6 +54,13 @@ describe('getEvents', () => {
     test('should return all events', async () => {
       const res = await gqlRunner(GET_EVENTS, {})
       expect(res.data.getEvents).toHaveLength(events.length)
+    })
+  })
+
+  describe('loads child nodes', () => {
+    test('animal_encounter nodes are loaded', async () => {
+      const res = await gqlRunner(GET_EVENTS, {})
+      expect(res.data.getEvents[0]).toHaveProperty('animal_encounters')
     })
   })
 })
