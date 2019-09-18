@@ -49,6 +49,16 @@ const GET_EVENTS = /* GraphQL */`
   }
 `
 
+const GET_EVENT_BY_ID = /* GraphQL */`
+  query (
+    $id: ID!
+  ) {
+    getEventById (id: $id) {
+      id
+    }
+  }
+`
+
 describe('getEvents', () => {
   describe('without query variables', () => {
     test('should return all events', async () => {
@@ -62,5 +72,26 @@ describe('getEvents', () => {
       const res = await gqlRunner(GET_EVENTS, {})
       expect(res.data.getEvents[0]).toHaveProperty('animal_encounters')
     })
+  })
+})
+
+describe('getEventById', () => {
+  test('returns data when given id', async () => {
+    const res = await gqlRunner(GET_EVENT_BY_ID, {
+      id: events[0].id
+    })
+    expect(res.data.getEventById).toHaveProperty('id', events[0].id)
+  })
+
+  test('returns error when id is missing', async () => {
+    const res = await gqlRunner(GET_EVENT_BY_ID, {})
+    expect(res).toHaveProperty('errors')
+  })
+
+  test('returns null when id isnt in database', async () => {
+    const res = await gqlRunner(GET_EVENT_BY_ID, {
+      id: '00000000-0000-0000-0000-000000000000'
+    })
+    expect(res.data).toHaveProperty('getEventById', null)
   })
 })
