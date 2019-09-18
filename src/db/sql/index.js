@@ -3,7 +3,8 @@ const path = require('path')
 
 module.exports = {
   animalEncounters: {
-    all: sql('animal-encounters/all.sql')
+    all: sql('animal-encounters/all.sql'),
+    findBatch: sql('animal-encounters/find-batch.sql')
   },
   biometrics: {
     all: sql('biometrics/all.sql'),

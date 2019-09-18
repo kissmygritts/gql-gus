@@ -13,7 +13,7 @@ const select = repo => args => {
   })
 }
 
-const find = repo => args => {
+const findById = repo => args => {
   const { id } = args
   const format = repo.pgp.as.format
 
@@ -36,7 +36,7 @@ const createOne = repo => data => {
 
 module.exports = {
   select,
-  find,
+  findById,
   findBatch,
   createOne
 }

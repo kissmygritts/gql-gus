@@ -23,6 +23,11 @@ const extend = repo => ({
       where: sqlizeFilter(filter),
       pagination: offsetPagination(limit)
     })
+  },
+
+  findBatch: async ids => {
+    console.log(ids)
+    return repo.db.manyOrNone(sql.findBatch, { ids })
   }
 })
 

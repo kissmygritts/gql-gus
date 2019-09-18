@@ -1,6 +1,6 @@
 const pgp = require('pg-promise')()
 const { pipe } = require('./index')
-const { select, find, createOne, findBatch } = require('./query-formatters')
+const { select, findById, createOne, findBatch } = require('./query-formatters')
 const queryRunners = require('./query-runners')
 
 const withPgpContext = ({ db, pgp }) => repo => ({
@@ -21,7 +21,7 @@ const withQueryFormatters = () => repo => ({
   ...repo,
   formatters: {
     select: select(repo),
-    find: find(repo),
+    findById: findById(repo),
     createOne: createOne(repo),
     findBatch: findBatch(repo)
   }

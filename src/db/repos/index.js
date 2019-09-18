@@ -1,16 +1,18 @@
 const { db, pgp } = require('./../index')
 const AnimalEncounterRepo = require('./animal-encounters')
 const BiometricRepo = require('./biometrics')
+const EventRepo = require('./events')
 const MarkRepo = require('./marks')
-const SampleRepo = require('./samples')
 const MedicationRepo = require('./medications')
 const ObservationFeedRepo = require('./observation-feed')
-const VitalRepo = require('./vitals')
+const SampleRepo = require('./samples')
 const SpeciesRepo = require('./species')
+const VitalRepo = require('./vitals')
 
 module.exports = {
   AnimalEncounters: AnimalEncounterRepo({ db, pgp }),
   Biometrics: BiometricRepo({ db, pgp }),
+  Events: EventRepo({ db, pgp }),
   Marks: MarkRepo({ db, pgp }),
   Medications: MedicationRepo({ db, pgp }),
   ObservationFeed: ObservationFeedRepo({ db, pgp }),
