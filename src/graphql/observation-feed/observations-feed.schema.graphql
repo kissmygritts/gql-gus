@@ -36,16 +36,18 @@ type Query {
   #   limit: OffsetPaginationInput
   # ): [WildlifeEvent]
   getObservationFeed (
+    filter: ObservationFeedFilterInput
     limit: OffsetPaginationInput
   ): [ObservationFeed]
 }
 
 input ObservationFeedFilterInput {
-  activity_name: StringFilterInput
-  source_app: StringFilterInput
   common_name: StringFilterInput
   species_name: StringFilterInput
-  species_group: StringFilterInput
+  source_app: StringFilterInput
+  life_status: StringFilterInput
+  age_class: StringFilterInput
+  sex: StringFilterInput
 }
 
 # observation feed, new

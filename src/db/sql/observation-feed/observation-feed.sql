@@ -25,5 +25,6 @@ from events
       left join animals on encounters.animal_id = animals.id
       left join species on encounters.species_id = species.id
   ) as e on events.id = e.event_id
+$/filter:raw/
 group by events.id
 $/pagination:raw/

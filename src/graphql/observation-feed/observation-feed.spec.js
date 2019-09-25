@@ -33,9 +33,11 @@ afterAll(async () => {
 const GET_OBSERVATION_FEED = /* GraphQL */`
   query (
     $limit: OffsetPaginationInput
+    $filter: ObservationFeedFilterInput
   ) {
     getObservationFeed (
       limit: $limit
+      filter: $filter
     ) {
       id
       source_app
@@ -62,6 +64,15 @@ describe('getObsevationFeed', () => {
         limit: { first: 1 }
       })
       expect(res.data.getObservationFeed).toHaveLength(1)
+    })
+  })
+
+  describe('with filter variable', () => {
+    test('common_name: like: %elk%', async () => {
+      const res = await gqlRunner(GET_OBSERVATION_FEED, {
+        filter: { common_name: { like: '%elk%' } }
+      })
+      expect(res.data.getObservationFeed[0].encounters_observation_feed[0]).toHaveProperty('common_name', 'elk')
     })
   })
 })
