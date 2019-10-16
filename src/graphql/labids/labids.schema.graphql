@@ -1,0 +1,5 @@
+type LabId {
+  id: ID
+  encounter_id: ID
+  labid: String
+}

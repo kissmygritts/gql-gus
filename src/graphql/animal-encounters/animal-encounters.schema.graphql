@@ -13,6 +13,7 @@ type AnimalEncounter {
   relocation: Boolean
   marks: [Mark]
   biometrics: [Biometric]
+  labids: [LabId]
   medications: [Medication]
   samples: [Sample]
   vitals: [Vital]
