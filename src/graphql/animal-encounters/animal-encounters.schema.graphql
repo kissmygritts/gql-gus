@@ -14,6 +14,7 @@ type AnimalEncounter {
   marks: [Mark]
   biometrics: [Biometric]
   labids: [LabId]
+  lab_results: [LabResult]
   medications: [Medication]
   samples: [Sample]
   vitals: [Vital]

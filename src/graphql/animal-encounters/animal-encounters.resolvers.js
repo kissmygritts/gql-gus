@@ -1,6 +1,7 @@
 const animalEncounters = require('./../../services/animal-encounters')
 const biometrics = require('./../../services/biometrics')
 const labids = require('./../../services/labids')
+const labResults = require('./../../services/lab-results')
 const marks = require('./../../services/marks')
 const medications = require('./../../services/medications')
 const samples = require('./../../services/samples')
@@ -16,6 +17,11 @@ module.exports = {
     labids: async (parent, args, context, info) => {
       if (parent.id) {
         return labids.LoadLabidsAsChildProp.load(parent.id)
+      }
+    },
+    lab_results: async (parent, args, context, info) => {
+      if (parent.id) {
+        return labResults.LoadLabResultsAsChildProp.load(parent.id)
       }
     },
     marks: async (parent, args, context, info) => {

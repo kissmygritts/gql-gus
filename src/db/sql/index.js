@@ -10,6 +10,9 @@ module.exports = {
     all: sql('biometrics/all.sql'),
     findBatch: sql('biometrics/find-batch.sql')
   },
+  labResults: {
+    findBatch: sql('lab-results/find-batch.sql')
+  },
   marks: {
     findBatch: sql('marks/find-batch.sql')
   },

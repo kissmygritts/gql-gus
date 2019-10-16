@@ -1,0 +1,14 @@
+type LabResult {
+  id: ID
+  encounter_id: ID
+  # lab_id: ID
+  case_num: String
+  specnum: Int
+  specimenid: String
+  specimen_location: String
+  test: String
+  result: String
+  lvl: String
+  isolate: String
+  lab: String
+}
