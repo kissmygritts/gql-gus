@@ -11,10 +11,11 @@ type AnimalEncounter {
   n: Int
   reencounter: Boolean
   relocation: Boolean
-  marks: [Mark]
   biometrics: [Biometric]
+  injuries: [Injury]
   labids: [LabId]
   lab_results: [LabResult]
+  marks: [Mark]
   medications: [Medication]
   samples: [Sample]
   vitals: [Vital]

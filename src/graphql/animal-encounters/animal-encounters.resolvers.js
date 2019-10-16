@@ -1,5 +1,6 @@
 const animalEncounters = require('./../../services/animal-encounters')
 const biometrics = require('./../../services/biometrics')
+const injuries = require('./../../services/injuries')
 const labids = require('./../../services/labids')
 const labResults = require('./../../services/lab-results')
 const marks = require('./../../services/marks')
@@ -14,6 +15,11 @@ module.exports = {
 
   AnimalEncounter: {
     biometrics: async (parent, args, context, info) => biometrics.LoadBiometricsAsChildProp.load(parent.id),
+    injuries: async (parent, args, context, info) => {
+      if (parent.id) {
+        return injuries.LoadInjuriesAsChildProp.load(parent.id)
+      }
+    },
     labids: async (parent, args, context, info) => {
       if (parent.id) {
         return labids.LoadLabidsAsChildProp.load(parent.id)

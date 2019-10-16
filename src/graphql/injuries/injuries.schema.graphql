@@ -1,0 +1,7 @@
+type Injury {
+  id: ID
+  encounter_id: ID
+  injury_type: String
+  injury_description: String
+  injury_treatment: String
+}

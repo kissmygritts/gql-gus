@@ -2,6 +2,7 @@ const { db, pgp } = require('./../index')
 const AnimalEncounterRepo = require('./animal-encounters')
 const BiometricRepo = require('./biometrics')
 const EventRepo = require('./events')
+const InjuryRepo = require('./injuries')
 const LabidRepo = require('./labids')
 const LabResultRepo = require('./lab-results')
 const MarkRepo = require('./marks')
@@ -15,6 +16,7 @@ module.exports = {
   AnimalEncounters: AnimalEncounterRepo({ db, pgp }),
   Biometrics: BiometricRepo({ db, pgp }),
   Events: EventRepo({ db, pgp }),
+  Injuries: InjuryRepo({ db, pgp }),
   Labids: LabidRepo({ db, pgp }),
   LabResults: LabResultRepo({ db, pgp }),
   Marks: MarkRepo({ db, pgp }),
