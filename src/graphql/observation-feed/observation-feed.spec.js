@@ -41,6 +41,7 @@ const GET_OBSERVATION_FEED = /* GraphQL */`
     ) {
       id
       source_app
+      event_start_timestamp
       encounters_observation_feed {
         ind_id
         common_name
@@ -73,6 +74,13 @@ describe('getObsevationFeed', () => {
         filter: { common_name: { like: '%elk%' } }
       })
       expect(res.data.getObservationFeed[0].encounters_observation_feed[0]).toHaveProperty('common_name', 'elk')
+    })
+
+    test('event_start_timestamp: between: [2019-01-01, 2019-12-31', async () => {
+      const res = await gqlRunner(GET_OBSERVATION_FEED, {
+        filter: { event_start_timestamp: { between: ['2019-01-01', '2019-12-31'] } }
+      })
+      expect(res.data.getObservationFeed).toHaveLength(2)
     })
   })
 })
