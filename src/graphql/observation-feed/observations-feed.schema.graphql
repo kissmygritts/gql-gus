@@ -31,10 +31,6 @@ type WildlifeAbundance {
 }
 
 type Query {
-  # getObservationFeed (
-  #   filter: ObservationFeedFilterInput
-  #   limit: OffsetPaginationInput
-  # ): [WildlifeEvent]
   getObservationFeed (
     filter: ObservationFeedFilterInput
     limit: OffsetPaginationInput
@@ -48,6 +44,7 @@ input ObservationFeedFilterInput {
   life_status: StringFilterInput
   age_class: StringFilterInput
   sex: StringFilterInput
+  event_start_timestamp: DateFilterInput
 }
 
 # observation feed, new

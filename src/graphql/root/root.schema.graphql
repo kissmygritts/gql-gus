@@ -11,3 +11,10 @@ input StringFilterInput {
   eq: String
   like: String
 }
+
+input DateFilterInput {
+  eq: String
+  gte: String
+  lte: String
+  between: [String]
+}
