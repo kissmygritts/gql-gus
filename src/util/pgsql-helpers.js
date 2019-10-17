@@ -10,7 +10,8 @@ const operators = {
   lt: '<',
   neq: '!=',
   in: 'IN',
-  like: '~~'
+  like: '~~',
+  between: 'between'
 }
 
 const getOperator = clauseObj => operators[Object.keys(clauseObj)[0]]
@@ -24,7 +25,18 @@ const parseFilter = filters => Object.keys(filters)
   }))
 
 const filterToWhereClause = criteriaArray => criteriaArray
-  .map(m => format('$/field:name/ $/operator:raw/ $/criteria/', m))
+  .map(m => {
+    if (m.operator === 'between') {
+      const criteria = {
+        field: m.field,
+        low: m.criteria[0],
+        high: m.criteria[1]
+      }
+      return format('$/field:name/ between $/low/ and $/high/', criteria)
+    } else {
+      return format('$/field:name/ $/operator:raw/ $/criteria/', m)
+    }
+  })
   .reduce((acc, curr) => acc + ' AND ' + curr)
 
 const sqlizeFilter = filters => {
